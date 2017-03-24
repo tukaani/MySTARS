@@ -1,10 +1,7 @@
 import java.util.ArrayList;
 
 public class StudentList {
-	/*
-	 * The number of students currently in array
-	 */
-	private int studentsInArray=0;
+
 	/*
 	 * Creating the list. Use ArrayList as this can be extended
 	 */
@@ -20,7 +17,7 @@ public class StudentList {
 	 */
 	public createStudent(String name, int ID, GENDER gender, String nationality){
 		Student student = new Student(name, ID, gender, nationality);
-		students[studentsInArray]=student;
+		students.add(student);
 	}
 	/*
 	 * Printing all the students currently in the list
