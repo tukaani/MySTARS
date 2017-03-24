@@ -13,6 +13,12 @@ public class Student extends Person{
 	* Student's course list
 	*/
 	private Course[] courses;
+	
+	/**
+	* Notification preferences for student
+	*/
+	private enum NOTIFICATION{MAIL, PHONE, MAILANDPHONE};
+	private NOTIFICATION notificationPreference;
 
 	private Date startDate; //NOT FINISHED
 	private Date endDate;	//NOT FINISHED
@@ -22,5 +28,12 @@ public class Student extends Person{
 	*/
 	public Student(String name, int ID, GENDER gender, String nationality){
 		super(name, ID, gender, nationality)
+	}
+	
+	/**
+	* Set the student's notification preference
+	*/
+	public setNotificationPreference(NOTIFICATION preference){
+		notificationPreference=preference;
 	}
 }
