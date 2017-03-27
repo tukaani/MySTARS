@@ -1,4 +1,4 @@
-
+import java.util.ArrayList;
 /**
  Represents a student using mySTARS
  Inherits from Person class
@@ -12,7 +12,8 @@ public class Student extends Person{
 	/**
 	* Student's course list
 	*/
-	private Course[] courses;
+	
+	protected ArrayList[] couses = new ArrayList[0];
 	
 	/**
 	* Notification preferences for student
@@ -27,13 +28,13 @@ public class Student extends Person{
 	* Student's consturctor
 	*/
 	public Student(String name, int ID, GENDER gender, String nationality){
-		super(name, ID, gender, nationality)
+		super(name, ID, gender, nationality);
 	}
 	
 	/**
 	* Set the student's notification preference
 	*/
-	public setNotificationPreference(NOTIFICATION preference){
-		notificationPreference=preference;
-	}
+	// public setNotificationPreference(NOTIFICATION preference){
+	// 	notificationPreference=preference;
+	// }
 }

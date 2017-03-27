@@ -44,7 +44,7 @@ public class Person{
 	* @param gender Person's gender
 	* @param nationality Person's nationality
 	*/
-	public person(String name, int ID, GENDER gender, String nationality){
+	public Person(String name, int ID, GENDER gender, String nationality){
 		this.name = name;
 		this.ID = ID;
 		this.gender = gender;
@@ -57,13 +57,13 @@ public class Person{
 	* @param gender Person's gender
 	* @param nationality Person's nationality
 	*/
-	public person(String name, int ID, String password, GENDER gender, String nationality, String title){
+	public Person(String name, int ID, String password, GENDER gender, String nationality, String title){
 		this.name = name;
 		this.ID = ID;
 		this.password = password;
 		this.gender = gender;
 		this.nationality = nationality;
-		self.title = title;
+		this.title = title;
 	}
 	/**
 	* Get person's name

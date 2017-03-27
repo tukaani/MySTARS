@@ -18,7 +18,7 @@ public class Index{
 	/**
 	* Student's in this index
 	*/
-	protected Student[] student;
+	protected Student[] students;
 	/**
 	* Waitlist of students 
 	*/
