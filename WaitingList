@@ -1,0 +1,25 @@
+import java.util.ArrayList;
+
+public class WaitingList {
+//list of matrix number of students on waiting list. Do not need student objects?
+private ArrayList[] students;
+private int studentsInList;
+
+  public WaitingList() {
+  students= new ArrayList[0];
+  studentsInList=0;
+  }
+  public void addToList(string studentID) {
+  students[studentsInList]=studentID;
+  studentsInList+=1;
+  }
+  public void updateList() {
+   string studentGiven=students[0];
+    for (int i=1;i<studentsInList;i++) {
+        students[i-1]=students[i];
+   }
+    students[studentsInList-1]=null;
+    studentsInList-=1;
+    \\send notification
+  }
+  }
