@@ -10,11 +10,9 @@ import java.util.ArrayList;
 import java.util.Date;
 public class Student extends Person{
 	/**
-	* Student's course list
+	* Student's index list
 	*/
-	
-	protected ArrayList[] couses = new ArrayList[0];
-	
+	protected ArrayList <Index> = new ArrayList<Index>();
 	/**
 	* Notification preferences for student
 	*/

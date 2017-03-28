@@ -18,12 +18,15 @@ public class Index{
 	/**
 	* Student's in this index
 	*/
-	protected Student[] students;
+	protected ArrayList<Integer> studentIDs = new ArrayList<Integer>();
 	/**
 	* Waitlist of students 
 	*/
-	protected Student[] waitingList;
+	protected ArrayList<Integer> waitingListIDs = new ArrayList<Integer>();
 
+	
+	//(venue : weekday, time(example 9)), (venue1: weekday, time)
+	//ADD TIMETABLE
 	/**
 	* Constuctor for Index class
 	*/
@@ -36,6 +39,15 @@ public class Index{
 	public void setIndex(int to){
 		self.indexNum = to;
 	}
+
+	  public void addLab (int day, int start, int stop, String venue) {
+    \\ add something
+    System.out.println("You have now added the lab.");
+    }
+    public void addTutorial (int day, int start, int stop, String venue, int index) {
+    \\ add something
+    System.out.println("You have now added the tutorial for index number " + index);
+    }
 
 }
 
