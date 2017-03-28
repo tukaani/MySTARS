@@ -12,7 +12,7 @@ public class Student extends Person{
 	/**
 	* Student's index list
 	*/
-	protected ArrayList <Index> = new ArrayList<Index>();
+	protected ArrayList <Index> indexes= new ArrayList<Index>();
 	/**
 	* Notification preferences for student
 	*/
