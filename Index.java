@@ -22,18 +22,20 @@ public class Index{
 	*/
 	protected ArrayList<Integer> waitingListIDs = new ArrayList<Integer>();
 
-	//protected String[] timeTable = new String[8]; //(type, venue, weekday, time)
+	//(type, venue, weekday, time)
 	protected ArrayList<String[]> timeTable = new ArrayList<String[]>();
-	//List<List<String>> timeTable = new ArrayList<List<String>>();
-	//protected String[][] timeTable = new String[2][4];
+	
 	/**
 	* Constuctor for Index class
 	*/
-	public Index(int indexNum, int capacity  ){// String[] timeTable
+	public Index(int indexNum, int vacancy, ArrayList<Integer> studentIDs, 
+		ArrayList<Integer> waitingListIDs, ArrayList<String[]> timeTable){
 		this.indexNum = indexNum;
-		//this.course = course;
-		this.vacancy = capacity;
-		//this.timeTable.add(timeTable);
+		this.vacancy = vacancy;
+		this.studentIDs = studentIDs;
+		this.waitingListIDs = waitingListIDs;
+		this.timeTable = timeTable;
+		
 	}
 	public void setIndex(int to){
 		this.indexNum = to;
@@ -51,14 +53,14 @@ public class Index{
 		return this.timeTable;
 	}
 
-	  public void addLab (int day, int start, int stop, String venue) {
-    // add something
-    System.out.println("You have now added the lab.");
-    }
-    public void addTutorial (int day, int start, int stop, String venue, int index) {
-    // add something
-    System.out.println("You have now added the tutorial for index number " + index);
-    }
+	  // public void addLab (int day, int start, int stop, String venue) {
+   //  // add something
+   //  System.out.println("You have now added the lab.");
+   //  }
+   //  public void addTutorial (int day, int start, int stop, String venue, int index) {
+   //  // add something
+   //  System.out.println("You have now added the tutorial for index number " + index);
+   //  }
 
 }
 

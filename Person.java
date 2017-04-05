@@ -16,7 +16,7 @@ public class Person{
 	*/
 	protected String name;
 	/**
-	* ID of the person
+	* ID of the person aka matriculation number
 	*/
 	protected int ID;
 	/**
@@ -44,9 +44,10 @@ public class Person{
 	* @param gender Person's gender
 	* @param nationality Person's nationality
 	*/
-	public Person(String name, int ID, GENDER gender, String nationality){
+	public Person(String name, int ID, String password, GENDER gender, String nationality){
 		this.name = name;
 		this.ID = ID;
+		this.password = password;
 		this.gender = gender;
 		this.nationality = nationality;
 	}
@@ -78,6 +79,9 @@ public class Person{
 	*/
 	public int getID(){
 		return this.ID;
+	}
+	public String getPassword(){
+		return this.password;
 	}
 
 }
