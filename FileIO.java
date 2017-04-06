@@ -55,6 +55,10 @@ public class FileIO{
 			st.append(stud.getGender());
 			st.append(SEPARATOR);
 			st.append(stud.getNationality());
+			st.append(SEPARATOR);
+			st.append(stud.getNotificationPreference());
+			st.append(SEPARATOR);
+			st.append(stud.getNotificationInfo());
 			ArrayList[] index = stud.getIndexes();
 			for (int j=0;j<index.size();j++){
 				Index ind = (Index)index.get(j);
@@ -114,8 +118,10 @@ for (int i=0;i<courselist.size();i++){
 				st.append(SEPARATOR);
 				st.append(indexes(i).getIndex());
 			}
-	//do something to add lecture details
-courses.add(st.toString());
+	st.append(SEPARATOR);
+	st.append(cour.printTimeTable()); //should do something about line changes??
+	
+courses.add(st.toString()); 
 }
 write(filename,courses);
 }
@@ -142,16 +148,19 @@ write(filename,courses);
 		  String ID=stok.nextToken().trim();
 		  GENDER gender=stok.nextToken().trim();
 		  String nationality=stok.nextToken().trim();
+		  NOTIFICATION notificationPreference=stok.nextToken.trim();
+		  String notificationInfo=stok.nextToken.trim();
 		  int c=0; //counter
-		  int[] index = new int[]; //write differently?
+		  ArrayList<Integer> indexes; //write differently?
 		  while something {// dont know how to run until no more indexes to choose from 
-			  index(c)=stok.nextToken().trim();
+			  indexes[c]=stok.nextToken().trim();
 			  c+=1;
 		  }
 		  Student stud= new Student(name,ID,gender,nationality);
-		  for (int k=0;k<index.size();k++){
-			  //add each index in studApp?? Is there a more efficient way?
-		  }
+		  stud.addNotificationPreference(/*add code*/)
+		for (int k=0;k<indexes.size();k++){ //can't seem to find indexes??
+			  stud.addIndex(indexes[i]);
+			  }
 		  students.add(stud);
 	  }
 	  return students;
@@ -201,17 +210,15 @@ write(filename,courses);
 		  int c=0; //counter
 		  int[] indexes = new int[]; //write differently?
 		  while something {// dont know how to run until should stop
-			  indexes(c)=Integer.pparseInt(stok.nextToken().trim());
+			  indexes(c)=Integer.parseInt(stok.nextToken().trim());
 			  c+=1;
 		  }
-		  //let students be found from index numbers later???
 		  // do something to timetable
+		  Course cour=new Course(code,name,capacity, vacancy, school, waitingList, timeTable); 
+		  courses(i)=cour;
 		  }
-		  Course cour=new Course(code,name,capacity, school) //add vacancies to Index creator
-		  }
-		  indexes.add(ind);
 	  }
-	  return students;
+	  return courses;
   }
   public static List read(String fileName) throws IOException {
 		List data = new ArrayList() ;
