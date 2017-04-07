@@ -4,9 +4,11 @@ import java.io.Console;
 
 public class StudentApp{
 	private Scanner sc = new Scanner(System.in);
-	//private ArrayList<Student> students = new ArrayList<Student>();
+
+	/**
+	* student variable holds current users student instance
+	*/
 	private Student student;
-	//private ArrayList<Course> courses = new ArrayList<Course>();
 	private studentList studentlist = new studentList();
 	private CourseList courseList = new CourseList();
 	/**
@@ -42,10 +44,6 @@ public class StudentApp{
 	}
 	public void start(){
 		int ch = 0;
-		
-		
-			
-
 		do{
 			printMenu();
 			ch = sc.nextInt();
@@ -64,6 +62,9 @@ public class StudentApp{
 					break;
 				case(5):
 					changeIndex();
+					break;
+				case(6):
+					// IMPLEMENT ME :(
 					break;
 			}
 

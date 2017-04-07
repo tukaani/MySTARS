@@ -11,10 +11,10 @@ public class MyStarsApp{
 			if(ch== 1){
 				StudentApp studentApp = new StudentApp();
 				studentApp.loginStudent();
-				
 			}
 			else if(ch == 2){
-			
+				StaffApp staffApp = new StaffApp();
+				staffApp.loginStaff();
 			}
 			else{
 				System.out.println("Good bye!");

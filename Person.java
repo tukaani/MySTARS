@@ -80,6 +80,9 @@ public class Person{
 	public int getID(){
 		return this.ID;
 	}
+	public void printInfo(){
+		System.out.println(name + " " + ID);
+	}
 	public String getPassword(){
 		return this.password;
 	}

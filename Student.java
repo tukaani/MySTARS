@@ -83,6 +83,8 @@ public class Student extends Person{
 		System.out.println("MAIL SENT");
 	}
 
+	
+
 	 public static Date parseDate(String date) {
      try {
          return new SimpleDateFormat("yyyy-MM-dd").parse(date);

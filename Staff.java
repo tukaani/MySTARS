@@ -14,7 +14,7 @@ public class Staff extends Person{
 	*/
 	String title;
 	/**
-	* Staff's consturctor
+	* Staff's constructor
 	*/
 	public Staff(String name, int ID, String password, GENDER gender, 
 		String nationality, String title){

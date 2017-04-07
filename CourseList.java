@@ -13,7 +13,7 @@ public class CourseList {
 	}
 	public ArrayList<Course> findCourseByName(String name){
 		ArrayList<Course> C = new ArrayList<Course>();
-		for(Course course:this.courses){
+		for(Course course : this.courses){
 			if(name.equals(course.getCourseName()))
 				C.add(course);
 		}
@@ -31,7 +31,6 @@ public class CourseList {
 		Course course = findCourseByIndex(ind);
 		return course.getVacancy();
 	}
-	//check 
 	public void changeVacancy(int ind, int amount){
 		for(Course c : courses){
 			if(c.getIndex() == ind)
@@ -44,9 +43,7 @@ public class CourseList {
 				c.reduceVacancy();
 		}
 	}
-	//check
 	public Integer increaseVacancy(int ind){
-		
 		for(Course c : courses){
 			if(c.getIndex() == ind)
 				return c.increaseVacancy();

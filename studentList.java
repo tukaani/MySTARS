@@ -7,7 +7,7 @@ public class studentList {
 	 */
 	protected ArrayList<Student> students = new ArrayList<Student>();
 	/*
-	 * Student list's constructor. What to put inside?
+	 * Student list's constructor.
 	 */
 	public studentList(){
 		FileIO.loadStudents(this.students);
@@ -24,6 +24,21 @@ public class studentList {
 			}
 		}
 		return null;
+	}
+
+	public void printStudentsInCourse(ArrayList<Course> courses){
+		//ArrayList<Student> students = new ArrayList<Student>();
+		//Go throught index list
+		for(Course c : courses){
+			//Gompare each index in student list
+			for(Student s : this.students){
+				if(s.getIndexes().indexOf(c.getIndex()) != -1){
+					System.out.println(s.getName() + " " + c.getIndex());
+					//students.add(s);
+					}
+			}
+		}
+		//return students;
 	}
 
 	public void addCourse(int ID, int ind){
