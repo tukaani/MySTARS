@@ -19,7 +19,6 @@ public class Course {
     //(type, venue, weekday, time)
     protected String[] timeTable = new String[4];
     
-    
     public Course(String code, String name, int index, int capacity, 
         int vacancy, String school, 
         ArrayList<Integer> waitingListIDs, String[] timeTable) {
@@ -31,20 +30,35 @@ public class Course {
         this.school = school;
         this.waitingListIDs = waitingListIDs;
         this.timeTable = timeTable;
-
-
+    }
+    public void setCode(String code){
+        this.courseCode = code;
     }
     public String getCourseName(){
         return this.courseName;
     }
+    public void setCourseName(String name){
+        this.courseName = name;
+    }
+
     public int getIndex(){
         return this.index;
     }
     public int getVacancy(){
         return this.vacancy;
     }
-    public void setVacancy(int amount){
+    //Does not check that is there students in waiting list
+    public ArrayList<Integer> setVacancy(int amount){
+        ArrayList<Integer> = new ArrayList<Integer>();
+        if(amount > capa)
+            return null;
+        if(waitingListIDs.size() != 0){
+            for(int i = 0; i < (amount - vacancy);i++){
+
+            }
+        }
         this.vacancy = amount;
+
     }
     public void reduceVacancy(){
         this.vacancy -= 1;
@@ -122,10 +136,5 @@ public class Course {
     // 	}
     // }
 
-    public void addLecture (int day, int start, int stop, String venue) {
-    // add something
-    System.out.println("You have now added the lecture.");
-    }
- 
 }
     

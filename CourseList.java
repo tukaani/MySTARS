@@ -11,6 +11,9 @@ public class CourseList {
 	public ArrayList<Course> getCourses(){
 		return this.courses;
 	}
+	public void addCourse(Course course){
+		courses.add(course);
+	}
 	public ArrayList<Course> findCourseByName(String name){
 		ArrayList<Course> C = new ArrayList<Course>();
 		for(Course course : this.courses){
@@ -73,17 +76,9 @@ public class CourseList {
 			return false;
 		return true;
 	}
-	public void updateCourse(String coursecode){
-		//update from coursecode or indexnumber? As one course will have multiple indexnumbers..
+	// public void updateCourse(String coursecode){
+	// 	//update from coursecode or indexnumber? As one course will have multiple indexnumbers..
 
-	}
-	// public int getVacancies(String coursecode){
-	// 	//same as above, coursecode or index?
-	// 	for (int i=0;i<coursesInArray;i++) {
-	// 		if (courses[i].getCoursecode==coursecode){
-	// 			return courses[i].getVacancies;
-	// 		}		
-	// 	}
 	// }
-	public void sortCourses(){/*NOT FINISHED*/}
+	
 }

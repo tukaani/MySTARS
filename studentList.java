@@ -17,6 +17,16 @@ public class studentList {
 		return this.students;
 	}
 
+	public void printStudentsByIndex(int ind){
+		for(Student s : students){
+			if(s.getIndexes().indexOf(ind) != -1)
+				s.printInfo();
+		}
+	}
+	public void addStudent(Student student){
+		this.students.add(student);
+	}
+
 	public Student findStudentByID(int ID){
 		for(Student student : students){
 			if(student.getID() == ID){
@@ -65,7 +75,12 @@ public class studentList {
 
 	public void sendMail(Integer ID, int ind){
 		Student s = findStudentByID(ID);
-		s.sendMail(ind);
+		if(s.getNotPref())
+			System.out.println("MAIL SENT!");
+		else
+			System.out.println("Send text message");	
+		
+		
 	}
 	/*
 	 * Adding a new student to the list

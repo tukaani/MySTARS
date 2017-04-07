@@ -40,7 +40,7 @@ public class StudentApp{
 				}
 		}
 		System.out.println("Login failed!");
-			return;
+		return;
 	}
 	public void start(){
 		int ch = 0;
@@ -66,9 +66,14 @@ public class StudentApp{
 				case(6):
 					// IMPLEMENT ME :(
 					break;
+				case(7):
+					changeNotPref();
+					break;
+				default:
+					return;
 			}
 
-		}while(ch < 7);
+		}while(ch < 8);
 		
 	}
 	public void printMenu(){
@@ -79,6 +84,7 @@ public class StudentApp{
 		System.out.println("4. Check vacancies available");
 		System.out.println("5. Change index number of course");
 		System.out.println("6. Swap index number with with another student");
+		System.out.println("7. Change notification preference");
 	}
 	// NO ERROR CHECKING
 	public void addCourse(){
@@ -219,6 +225,18 @@ public class StudentApp{
 		}
 	}
 
-	
+	public void changeNotPref(){
+		System.out.print("Choose preferedded notification. 1. Mail 2. Phone. (Default is mail) ");
+
+		int pref = sc.nextInt();
+		System.out.println(studentlist.findStudentByID(student.getID()).getNotPref());
+		if(pref == 1)
+			studentlist.findStudentByID(student.getID()).setNotPref(true);
+		else if(pref == 2){
+			studentlist.findStudentByID(student.getID()).setNotPref(false);
+		}
+		else
+			System.out.println("Nothing was changed!");
+	}
 	
 }

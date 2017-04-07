@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 import java.text.ParseException;
 public class Student extends Person{
 	/**
@@ -29,11 +30,11 @@ public class Student extends Person{
 	*/
 	public Student(String name, int ID, String password, GENDER gender, 
 		String nationality, ArrayList<Integer> indexes, 
-		String startD, String endD){
-		super(name, ID, password, gender, nationality);
+		String startD, String endD, int phone){
+		super(name, ID, password, gender, nationality, phone);
 		this.indexes = indexes;
-		changeStartDate(startD);
-		changeEndDate(endD);
+		setStartDate(startD);
+		setEndDate(endD);
 
 	}
 	
@@ -47,12 +48,21 @@ public class Student extends Person{
 		return true;
 		}
 	// Format: "2017-06-14"
-	public void changeStartDate(String date){
+	public void setStartDate(String date){
 		this.startDate = parseDate(date);
 	}
 	// Format: "2017-06-14"
-	public void changeEndDate(String date){
+	public void setEndDate(String date){
 		this.endDate = parseDate(date);
+	}
+	public String getStartDate(){
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		return df.format(this.startDate);
+	}
+	public String getEndDate(){
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		return df.format(this.endDate);
+		
 	}
 	public ArrayList<Integer> getIndexes(){
 		return this.indexes;
@@ -79,11 +89,9 @@ public class Student extends Person{
 			}
 		}
 	}
-	public void sendMail(int ind){
-		System.out.println("MAIL SENT");
-	}
-
-	
+	// public void sendMail(int ind){
+	// 	System.out.println("MAIL SENT");
+	// }
 
 	 public static Date parseDate(String date) {
      try {
