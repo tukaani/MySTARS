@@ -9,9 +9,6 @@
 
 import java.util.Date;
 public class Staff extends Person{
-
-	private Date startDate; //NOT FINISHED
-	private Date endDate;	//NOT FINISHED
 	/**
 	* Title of staff's
 	*/
@@ -19,7 +16,9 @@ public class Staff extends Person{
 	/**
 	* Staff's consturctor
 	*/
-	public Staff(String name, int ID, GENDER gender, String nationality){
-		super(name, ID, gender, nationality)
+	public Staff(String name, int ID, String password, GENDER gender, 
+		String nationality, String title){
+		super(name, ID, password, gender, nationality)
+		this.title = title;
 	}
 }
