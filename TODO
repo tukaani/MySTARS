@@ -1,0 +1,8 @@
+
+- Missing mail sending implementation
+- Missing unit tests
+- courses have no staff
+- StudentApp: 
+	- Missing implementation for changing indexes
+	- no input validation done
+
