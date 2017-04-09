@@ -8,7 +8,7 @@ public class CourseList {
 	public CourseList(){
 		
 		try{
-			TestFileIO.loadCourses(this.courses);
+			//TestFileIO.loadCourses(this.courses);
 			FileIO.saveCourses(this.courses);
 			//this.courses = FileIO.readCourses();
 			}
@@ -103,9 +103,4 @@ public class CourseList {
 			return false;
 		return true;
 	}
-	// public void updateCourse(String coursecode){
-	// 	//update from coursecode or indexnumber? As one course will have multiple indexnumbers..
-
-	// }
-	
 }

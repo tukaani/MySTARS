@@ -18,10 +18,7 @@ public class StudentApp{
 	//public Course course;
 	
 	public StudentApp(){
-		//FileIO.test(this.students); 
-		// FileIO.loadStudents(this.students);
-		// FileIO.loadCourses(courses);
-		//studentList = new studentList();
+
 	}
 
 	public void loginStudent(){

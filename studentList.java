@@ -10,13 +10,8 @@ public class studentList {
 	 * Student list's constructor.
 	 */
 	public studentList(){
-		//ArrayList staff = new ArrayList();
-		//staff.add(new Staff("Chun woo", 888, "pwd", "Professor"));
-		//TestFileIO.loadStudents(this.students);
 		try{
-			//FileIO.saveStudents(this.students);
 			students = FileIO.readStudents();
-			//staff = FileIO.readStaff();
 			}
 		catch(IOException e){
 			System.out.println("Error in FileIO: " + e);
@@ -81,7 +76,6 @@ public class studentList {
 		for(Student s : students){
 			if(s.getID() == ID){
 				s.getIndexes().remove(s.getIndexes().indexOf(ind));
-				//s.removeIndex(ind);
 				}
 		}
 	}
@@ -104,20 +98,9 @@ public class studentList {
 			System.out.println("MAIL AND TEXT MESSAGE SEND");
 		
 	}
-	/*
-	 * Adding a new student to the list
-	 */
-	// public createStudent(String name, int ID, GENDER gender, String nationality){
-	// 	Student student = new Student(name, ID, gender, nationality);
-	// 	students.add(student);
-	// }
-	/*
-	 * Printing all the students currently in the list
-	 */
 	public void printStudentList(){
 		for(Student student : students){
 			System.out.println(student.getName());
 		}
-		// is this students enrolled in course? All students? In which order to sort?
 	}
 }

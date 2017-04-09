@@ -113,12 +113,7 @@ public class StaffApp{
 			Student student = new Student(name, ID, password, gender, nationality, indexes,
 				startDate, endDate, phone, Person.NOTIFICATION.MAIL);
 			studentlist.addStudent(student);
-			// for(Student s : studentlist.getStudents()){
-			// 	s.printInfo();
-			// 	System.out.println(s.getStartDate());
-			// 	for(Integer i : s.getIndexes())
-			// 		System.out.println(i);
-			// }
+
 			System.out.println("Student added!");
 			courseList.saveCourses();
 			studentlist.saveStudents();

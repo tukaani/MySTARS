@@ -75,14 +75,7 @@ public class Student extends Person{
 	public void addIndex(int ind){
 		indexes.add(ind);
 	}
-	//Removed
-	// public void removeIndex(int ind){
-	// 	for(Integer i : indexes){
-	// 		if(i == ind)
-	// 			indexes.remove(i);
-	// 	}
-		
-	// }
+
 	public void changeIndex(int indFrom, int indTo){
 		for(Integer i : indexes){
 			if(i == indFrom){
@@ -90,9 +83,6 @@ public class Student extends Person{
 			}
 		}
 	}
-	// public void sendMail(int ind){
-	// 	System.out.println("MAIL SENT");
-	// }
 
 	 public static Date parseDate(String date) {
      try {
@@ -101,10 +91,5 @@ public class Student extends Person{
          return null;
      }
   }
-	/**
-	* Set the student's notification preference
-	*/
-	// public setNotificationPreference(NOTIFICATION preference){
-	// 	notificationPreference=preference;
-	// }
+
 }

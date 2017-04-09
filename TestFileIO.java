@@ -24,8 +24,7 @@ public class TestFileIO{
 		
 		ArrayList<Integer> waitingList = new ArrayList<Integer>();
 		ArrayList<Integer> waitingList2 = new ArrayList<Integer>();
-		//ArrayList<Integer> staff = new ArrayList<Integer>();
-		//staff.add(new Staff("Chun woo", 888, "pwd", "Professor"));
+
 		String[] staff = {"888", "777"};
 		
 		int index = 1234;

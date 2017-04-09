@@ -72,7 +72,7 @@ public class Course {
     public void setStaff(String[] staff){
         this.staff = staff;
     }
-    //Does not check that is there students in waiting list
+    
     public ArrayList<Integer> setCapacity(int amount){
         ArrayList<Integer> IDs= new ArrayList<Integer>();
         if(amount < capacity && waitingListIDs.size() != 0)
@@ -133,42 +133,6 @@ public class Course {
         }
         System.out.println("");
     }
-    //Add new index for this course
-    // public void addIndex(int indexNum){ 
-    //     indexes.add(new Index(indexNum, this.capacity));    
-    // }
-    // public void addTimeTableforIndex(int indexNum, String[] timeTable){
-    //     getIndex(indexNum).addTimeTable(timeTable);
-    // }
-
-    // public int getIndexNum(int indexNum){
-    //     for(Index index: indexes){
-    //         if(index.getIndex() == indexNum)
-    //             return indexNum;
-    //     }
-    //     return -1;
-    // }
-    /**
-    * Get Index instance
-    * @param indexNum
-    * @return Index instance or null if not found
-    */
-    // public Index getIndex(int indexNum){
-    //     for(Index index: indexes){
-    //         if(index.getIndex() == indexNum)
-    //             return index;
-    //     }
-    //     return null; // Index instance could not be found
-    // }
-    // public ArrayList<String[]> getIndexTimeTable(int indexNum){
-    //     return getIndex(indexNum).getTimeTable();
-    // }
-    // public void setIndexNumber(int from, int to){
-    // for(Index index: indexList){
-    // 	if(from == index.getIndex())
-    // 		index.setIndex(to);
-    // 	}
-    // }
 
 }
     

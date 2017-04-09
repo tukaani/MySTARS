@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.NoSuchElementException;
 public class FileIO{
-	//Assuming that students variable is not destroyed when the function that called this class has ended
+
 	public static String filenameStud = "StudentList.txt";
 	public static String filenameCour = "CourseList.txt";
 	public static String filenameStaff = "StaffList.txt";
@@ -56,13 +56,12 @@ public class FileIO{
 	}
 	
 	public static void saveCourses(ArrayList<Course> courselist) throws IOException {
-		
 
 		List courses = new ArrayList();
 		for (int i=0;i<courselist.size();i++){
 			StringBuilder st=new StringBuilder();
 			Course cour=(Course)courselist.get(i);
-			st.append(cour.getCourseCode().trim()); //add method to Course
+			st.append(cour.getCourseCode().trim()); 
 			st.append(SEPARATOR);
 			st.append(cour.getCourseName().trim());
 			st.append(SEPARATOR);
@@ -94,10 +93,8 @@ public class FileIO{
 					st.append(waitList.get(j));
 				}
 			}
-			
-			
 			st.append(SEPARATOR);
-		courses.add(st.toString()); 
+			courses.add(st.toString()); 
 		}	
 		write(filenameCour, courses);
 	}
@@ -113,11 +110,6 @@ public class FileIO{
       out.close();
     }
   }
-
-
-  //Jack|123|pwd|MALE|holland|12!|2017-02-14|2017-06-14|421421|MAILANDPHONE|
-//Marie|567|pwd|MALE|holland|1234!|2017-02-14|2017-06-14|421421|MAILANDPHONE|
-//matti penttila|666|pwd|FEMALE|Finland||2017-06-14|2017-07-01|532532|MAIL|
 
   public static ArrayList readStudents() throws IOException {
 	  ArrayList stringArray=(ArrayList)read(filenameStud);
@@ -168,12 +160,8 @@ public class FileIO{
 			  notificationPreference=Person.NOTIFICATION.MAILANDPHONE;
 		  }
 		  
-		  
-		  //startD and endD do not exist
 		  Student stud= new Student(name,Integer.parseInt(ID),password,gender1,nationality,indexes,
 		  	startD, endD, Integer.parseInt(phone),notificationPreference);
-		  //stud.addNotificationPreference(/*add code*/);
-		  //fix notification preference and notification info
 		  students.add(stud);
 	  }
 	  return students;
@@ -223,7 +211,7 @@ public class FileIO{
 		  
 		  StringTokenizer stok2= new StringTokenizer(waitList1, SEPARATOR2);	 
 		  int count = stok2.countTokens();
-		  for (int j=0;j<count;j++){ //does length work?
+		  for (int j=0;j<count;j++){ 
 			  String part=stok2.nextToken();
 			  System.out.println(part);
 			  waitingList.add(Integer.parseInt(part));

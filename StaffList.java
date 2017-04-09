@@ -12,7 +12,6 @@ public class StaffList {
 	public StaffList(){
 		
 		try{
-			//FileIO.saveStudents(this.students);
 			this.staff = FileIO.readStaff();
 			}
 		catch(IOException e){
