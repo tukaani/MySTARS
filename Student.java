@@ -19,8 +19,8 @@ public class Student extends Person{
 	/**
 	* Notification preferences for student
 	*/
-	private enum NOTIFICATION{MAIL, PHONE, MAILANDPHONE};
-	private NOTIFICATION notificationPreference;
+	
+	
 	
 	private Date startDate = new Date();
 	private Date endDate = new Date();
@@ -30,8 +30,8 @@ public class Student extends Person{
 	*/
 	public Student(String name, int ID, String password, GENDER gender, 
 		String nationality, ArrayList<Integer> indexes, 
-		String startD, String endD, int phone){
-		super(name, ID, password, gender, nationality, phone);
+		String startD, String endD, int phone, NOTIFICATION notificationPreference){
+		super(name, ID, password, gender, nationality, phone, notificationPreference);
 		this.indexes = indexes;
 		setStartDate(startD);
 		setEndDate(endD);
@@ -75,13 +75,14 @@ public class Student extends Person{
 	public void addIndex(int ind){
 		indexes.add(ind);
 	}
-	public void removeIndex(int ind){
-		for(Integer i : indexes){
-			if(i == ind)
-				indexes.remove(i);
-		}
+	//Removed
+	// public void removeIndex(int ind){
+	// 	for(Integer i : indexes){
+	// 		if(i == ind)
+	// 			indexes.remove(i);
+	// 	}
 		
-	}
+	// }
 	public void changeIndex(int indFrom, int indTo){
 		for(Integer i : indexes){
 			if(i == indFrom){

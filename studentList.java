@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-
+import java.io.IOException;
 public class studentList {
 
 	/*
@@ -10,9 +10,28 @@ public class studentList {
 	 * Student list's constructor.
 	 */
 	public studentList(){
-		FileIO.loadStudents(this.students);
+		//ArrayList staff = new ArrayList();
+		//staff.add(new Staff("Chun woo", 888, "pwd", "Professor"));
+		//TestFileIO.loadStudents(this.students);
+		try{
+			//FileIO.saveStudents(this.students);
+			students = FileIO.readStudents();
+			//staff = FileIO.readStaff();
+			}
+		catch(IOException e){
+			System.out.println("Error in FileIO: " + e);
+		}
 	}
 
+	public void saveStudents(){
+		try{
+
+			FileIO.saveStudents(this.students);
+			}
+		catch(IOException e){
+			System.out.println("Error in FileIO: " + e);
+			}
+	}
 	public ArrayList<Student> getStudents(){
 		return this.students;
 	}
@@ -60,8 +79,10 @@ public class studentList {
 
 	public void removeCourse(int ID, int ind){
 		for(Student s : students){
-			if(s.getID() == ID)
-				s.removeIndex(ind);
+			if(s.getID() == ID){
+				s.getIndexes().remove(s.getIndexes().indexOf(ind));
+				//s.removeIndex(ind);
+				}
 		}
 	}
 
@@ -73,13 +94,14 @@ public class studentList {
 		}
 	}
 
-	public void sendMail(Integer ID, int ind){
+	public void sendNotification(Integer ID, int ind){
 		Student s = findStudentByID(ID);
-		if(s.getNotPref())
+		if(s.getNotPref() == Person.NOTIFICATION.MAIL)
 			System.out.println("MAIL SENT!");
-		else
+		else if(s.getNotPref() == Person.NOTIFICATION.PHONE)
 			System.out.println("Send text message");	
-		
+		else
+			System.out.println("MAIL AND TEXT MESSAGE SEND");
 		
 	}
 	/*

@@ -1,51 +1,266 @@
+import java.io.IOException;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.FileInputStream;
+import java.util.Scanner;
+import java.util.List;
 import java.util.ArrayList;
-
+import java.util.StringTokenizer;
+import java.util.NoSuchElementException;
 public class FileIO{
-	
-	public static void loadStudents(ArrayList<Student>students){
-		ArrayList<Integer> indexes = new ArrayList<Integer>();
-		indexes.add(1234);
-		indexes.add(4567);
-		indexes.add(12);
-		Student student = new Student("Jack", 123, "pwd", Person.GENDER.MALE, "holland", indexes,
-			"2017-02-14", "2017-06-14");
-		students.add(student);
+	//Assuming that students variable is not destroyed when the function that called this class has ended
+	public static String filenameStud = "StudentList.txt";
+	public static String filenameCour = "CourseList.txt";
+	public static String filenameStaff = "StaffList.txt";
+	public static ArrayList<Student> students = new ArrayList<Student>();
+	public static ArrayList<Course> courses = new ArrayList<Course>();
+	public static final String SEPARATOR="|";
+	public static final String SEPARATOR2 = "!";
+	public static final String SEPARATOR3 = "-";
+
+	public static void saveStudents(ArrayList<Student> studlist) throws IOException {
 		
-		ArrayList<Integer> indexes2 = new ArrayList<Integer>();
-		 indexes2.add(1234);
-		student = new Student("Marie", 567, "pwd", Person.GENDER.FEMALE, "holland", indexes2,
-			"2017-02-14", "2017-06-14");
-		students.add(student);
-		
-	} 
-	public static void loadCourses(ArrayList<Course>courses){
-		
-		ArrayList<Integer> waitingList = new ArrayList<Integer>();
-		// Read waiting list students
-		waitingList.add(123);
-		int index = 1234;
-		int capacity = 10;
-		int vacancy = 9;
-		String[] timeTable = {"lecture", "T2", "Monday", "9"};
-		Course course = new Course("cs2002", "java",index, capacity, 
-			vacancy, "SCI",waitingList, timeTable);
-		courses.add(course);
-
-		String[] timeTable2 = {"lecture", "T5", "Friday", "9"};
-		course = new Course("cs2002", "java",4567, capacity, 
-			vacancy, "SCI",waitingList, timeTable2);
-		courses.add(course);
-
-		String[] timeTable3 = {"lecture", "T5", "Friday", "8"};
-		course = new Course("cs4002", "cpp",12, capacity, 
-			5, "SCI",waitingList, timeTable3);
-		courses.add(course);
-
-		String[] timeTable4 = {"lecture", "T5", "Tuesday", "8"};
-		course = new Course("cs4002", "cpp",12, capacity, 
-			5, "SCI",waitingList, timeTable4);
-
-
+		List students = new ArrayList();
+		for (int i=0;i<studlist.size();i++){
+			StringBuilder st=new StringBuilder();
+			Student stud = (Student)studlist.get(i);
+			st.append(stud.getName().trim());
+			st.append(SEPARATOR);
+			st.append(stud.getID());
+			st.append(SEPARATOR);
+			st.append(stud.getPassword());
+			st.append(SEPARATOR);
+			st.append(stud.getGender());
+			st.append(SEPARATOR);
+			st.append(stud.getNationality());
+			st.append(SEPARATOR);
+			ArrayList indexList=new ArrayList<Integer>();
+			indexList=stud.getIndexes();
+			for (int j=0;j<indexList.size();j++){
+				st.append(indexList.get(j));
+				st.append(SEPARATOR2);
+			}
+			st.append(SEPARATOR);
+			st.append(stud.getStartDate());
+			st.append(SEPARATOR);
+			st.append(stud.getEndDate());
+			st.append(SEPARATOR);
+			st.append(stud.getPhone()); 
+			st.append(SEPARATOR);
+			st.append(stud.getNotPref()); 
+			st.append(SEPARATOR);
+			
+			students.add(st.toString());
+		}
+		write(filenameStud, students);
 	}
 	
+	public static void saveCourses(ArrayList<Course> courselist) throws IOException {
+		
+
+		List courses = new ArrayList();
+		for (int i=0;i<courselist.size();i++){
+			StringBuilder st=new StringBuilder();
+			Course cour=(Course)courselist.get(i);
+			st.append(cour.getCourseCode().trim()); //add method to Course
+			st.append(SEPARATOR);
+			st.append(cour.getCourseName().trim());
+			st.append(SEPARATOR);
+			st.append(cour.getIndex());
+			st.append(SEPARATOR);
+			st.append(cour.getCapacity());
+			st.append(SEPARATOR);
+			st.append(cour.getVacancy());
+			st.append(SEPARATOR);
+			st.append(cour.getSchool());
+			st.append(SEPARATOR);
+			
+			String[] timeTable=cour.getTimeTable();
+			for (int k=0;k<8;k++){
+				st.append(timeTable[k]);
+				st.append(SEPARATOR3);
+			}
+			st.append(SEPARATOR);
+			st.append(cour.getStaff(0));
+			st.append(SEPARATOR);
+			st.append(cour.getStaff(1));
+			st.append(SEPARATOR);
+			ArrayList waitList=new ArrayList<Integer>();
+			if (cour.getWaitingList().size() != 0) {
+				waitList = cour.getWaitingList();
+				st.append(waitList.get(0));
+				for (int j=1;j<waitList.size();j++){
+					st.append(SEPARATOR2);
+					st.append(waitList.get(j));
+				}
+			}
+			
+			
+			st.append(SEPARATOR);
+		courses.add(st.toString()); 
+		}	
+		write(filenameCour, courses);
+	}
+  public static void write(String filename, List data) throws IOException  {
+    PrintWriter out = new PrintWriter(new FileWriter(filename));
+
+    try {
+		for (int i =0; i < data.size() ; i++) {
+      		out.println((String)data.get(i));
+		}
+    }
+    finally {
+      out.close();
+    }
+  }
+
+
+  //Jack|123|pwd|MALE|holland|12!|2017-02-14|2017-06-14|421421|MAILANDPHONE|
+//Marie|567|pwd|MALE|holland|1234!|2017-02-14|2017-06-14|421421|MAILANDPHONE|
+//matti penttila|666|pwd|FEMALE|Finland||2017-06-14|2017-07-01|532532|MAIL|
+
+  public static ArrayList readStudents() throws IOException {
+	  ArrayList stringArray=(ArrayList)read(filenameStud);
+	  ArrayList students = new ArrayList();
+	  
+	  for (int i=0;i<stringArray.size();i++) {
+		  String st = (String)stringArray.get(i);
+		  StringTokenizer stok= new StringTokenizer(st, SEPARATOR);
+		  String name=stok.nextToken().trim();
+		  String ID=stok.nextToken().trim();
+		  String password = stok.nextToken().trim();
+		  String gender=stok.nextToken().trim();
+		  Person.GENDER gender1;
+		  if (gender=="FEMALE"){
+			  gender1=Person.GENDER.FEMALE;
+		  }
+		  else {
+			  gender1=Person.GENDER.MALE;
+		  }
+		  String nationality=stok.nextToken().trim();
+		  String indexString;
+		  ArrayList indexes=new ArrayList<Integer>();
+		  indexString = stok.nextToken().trim();
+		  String startD = "";
+		  if(!indexString.contains("-")){
+		  	StringTokenizer stok1=new StringTokenizer(indexString,SEPARATOR2);
+		  	int count = stok1.countTokens();
+			  for (int j=0;j<count;j++){ 
+				  String part=stok1.nextToken();
+				  indexes.add(Integer.parseInt(part));
+			  }
+			  startD = stok.nextToken().trim();
+		  }
+		  else{
+		  	startD = indexString;
+		  }
+		  String endD = stok.nextToken().trim();
+		  String phone = stok.nextToken().trim();
+		  String notPref=stok.nextToken().trim();
+		  Person.NOTIFICATION notificationPreference;
+		  if (notPref=="MAIL"){
+			  notificationPreference=Person.NOTIFICATION.MAIL;
+		  }
+		  else if (notPref=="PHONE"){
+			  notificationPreference=Person.NOTIFICATION.PHONE;
+		  }
+		  else {
+			  notificationPreference=Person.NOTIFICATION.MAILANDPHONE;
+		  }
+		  
+		  
+		  //startD and endD do not exist
+		  Student stud= new Student(name,Integer.parseInt(ID),password,gender1,nationality,indexes,
+		  	startD, endD, Integer.parseInt(phone),notificationPreference);
+		  //stud.addNotificationPreference(/*add code*/);
+		  //fix notification preference and notification info
+		  students.add(stud);
+	  }
+	  return students;
+  }
+  public static ArrayList readCourses() throws IOException{
+  		
+
+	  ArrayList stringArray=(ArrayList)read(filenameCour);
+	  ArrayList courses = new ArrayList();
+	  
+	  for (int i=0;i<stringArray.size();i++) {
+		  String st = (String)stringArray.get(i);
+		  StringTokenizer stok= new StringTokenizer(st, SEPARATOR);
+		  
+		  String courseCode=stok.nextToken().trim();
+		  String courseName=stok.nextToken().trim();
+		  int index = Integer.parseInt(stok.nextToken().trim());
+		  int capacity=Integer.parseInt(stok.nextToken().trim());
+		  int vacancy=Integer.parseInt(stok.nextToken().trim());
+		  String school=stok.nextToken().trim();
+
+		  String timeTab=stok.nextToken().trim();
+		  StringTokenizer stok1=new StringTokenizer(timeTab,SEPARATOR3);
+		  String[] timeTable = new String[8];
+		  for (int k=0;k<8;k++){
+		  		String temp = stok1.nextToken().trim(); 
+			  timeTable[k]= temp;
+		  }
+		  
+
+		  String[] staff = new String[2];
+		  staff[0] = stok.nextToken().trim();
+		  staff[1] =  stok.nextToken().trim();
+		  
+		  
+		  ArrayList waitingList=new ArrayList<Integer>();
+		  String waitList1;
+		  try{
+		  	waitList1=stok.nextToken();
+		  }
+		  catch(NoSuchElementException e){
+		  	Course cour=new Course(courseCode,courseName,index, capacity, vacancy, school, 
+		  	waitingList, timeTable,staff); 
+		  	courses.add(cour);
+		  	continue;
+		  }
+		  
+		  StringTokenizer stok2= new StringTokenizer(waitList1, SEPARATOR2);	 
+		  int count = stok2.countTokens();
+		  for (int j=0;j<count;j++){ //does length work?
+			  String part=stok2.nextToken();
+			  System.out.println(part);
+			  waitingList.add(Integer.parseInt(part));
+		  }
+		  Course cour=new Course(courseCode,courseName,index, capacity, vacancy, school, 
+		  	waitingList, timeTable, staff); 
+		  courses.add(cour);
+		  }
+	  
+	  return courses;
+  }
+ 	public static ArrayList readStaff() throws IOException {
+ 		ArrayList stringArray=(ArrayList)read(filenameStaff);
+	 	ArrayList<Staff> staff = new ArrayList();
+	 	for (int i=0;i<stringArray.size();i++) {
+		  String st = (String)stringArray.get(i);
+		  StringTokenizer stok= new StringTokenizer(st, SEPARATOR);
+		  String name=stok.nextToken().trim();
+		  String ID=stok.nextToken().trim();
+		  String password = stok.nextToken().trim();
+		  String title=stok.nextToken().trim();
+		  Staff s = new Staff(name, Integer.parseInt(ID), password, title);
+			staff.add(s);
+		}
+		return staff;
+ 	}
+	public static List read(String fileName) throws IOException {
+			List data = new ArrayList() ;
+		    Scanner scanner = new Scanner(new FileInputStream(fileName));
+		    try {
+		      while (scanner.hasNextLine()){
+		        data.add(scanner.nextLine());
+		      }
+		    }
+		    finally{
+		      scanner.close();
+		    }
+		    return data;
+		  }
 }

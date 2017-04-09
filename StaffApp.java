@@ -7,14 +7,21 @@ public class StaffApp{
 	private Scanner sc = new Scanner(System.in);
 	private studentList studentlist = new studentList();
 	private CourseList courseList = new CourseList();
-	
+	private StaffList staffList = new StaffList();
 
 	public void loginStaff(){
 		Console cnsl = System.console();
-		String matricN = cnsl.readLine("Give your ID number: ");
+		String ID = cnsl.readLine("Give your ID number: ");
 		char[] passwd = cnsl.readPassword("password: ");
 
-		start();
+		for(Staff st : staffList.getStaff()){
+			if(Integer.toString(st.getID()).equals(ID) &&
+				st.getPassword().equals(new String(passwd))){
+				System.out.println("Welcome " + st.getName());
+				start();
+			}
+		}
+		
 		System.out.println("Login failed!");
 		return;
 	}
@@ -37,7 +44,7 @@ public class StaffApp{
 					updateCourse();
 					break;
 				case(5):
-					//checkVacancies();
+					checkVacancies();
 					break;
 				case(6):
 					printStudentsByIndex();
@@ -45,7 +52,6 @@ public class StaffApp{
 				case(7):
 					printStudentsByCourse();
 					break;
-
 			}
 
 		}while(ch < 7);
@@ -83,7 +89,7 @@ public class StaffApp{
 			Scanner sca = new Scanner(System.in);
 			System.out.println("New student will be created but without any courses");
 			System.out.print("Give name ");
-			String name = sca.next();
+			String name = sca.nextLine();
 			System.out.print("Give ID ");
 			int ID = sca.nextInt();
 			System.out.print("Give password ");
@@ -105,7 +111,7 @@ public class StaffApp{
 			System.out.print("Give phone number ");
 			int phone = sca.nextInt();
 			Student student = new Student(name, ID, password, gender, nationality, indexes,
-				startDate, endDate, phone);
+				startDate, endDate, phone, Person.NOTIFICATION.MAIL);
 			studentlist.addStudent(student);
 			// for(Student s : studentlist.getStudents()){
 			// 	s.printInfo();
@@ -114,6 +120,8 @@ public class StaffApp{
 			// 		System.out.println(i);
 			// }
 			System.out.println("Student added!");
+			courseList.saveCourses();
+			studentlist.saveStudents();
 		}
 		catch(InputMismatchException e){
 		 	System.out.println("Error in inputs ");
@@ -124,9 +132,9 @@ public class StaffApp{
 		try {
 			Scanner sca = new Scanner(System.in);
 			System.out.print("Give code for the course ");
-			String code = sca.next();
+			String code = sca.nextLine();
 			System.out.print("Give name for the course ");
-			String name = sca.next();
+			String name = sca.nextLine();
 			System.out.print("Give index number for the course ");
 			int index = sca.nextInt();
 			System.out.print("Give capacity for the course ");
@@ -136,17 +144,25 @@ public class StaffApp{
 			System.out.print("Give school ");
 			String school = sca.next();
 			ArrayList<Integer> waitingList = new ArrayList<Integer>();
-			String[] timeTable = new String[4];
-			System.out.print("Give type of the course ");
-			timeTable[0] = sca.next();
-			System.out.print("Give venue for the course ");
-			timeTable[1] = sca.next();
-			System.out.print("Give weekday for the course ");
-			timeTable[2] = sca.next();
-			System.out.print("Give time for the course ");
-			timeTable[3] = sca.next();
+			String[] timeTable = new String[8];
+			System.out.println("Give two timetables for the course");
+			int indx = 0;
+			for(int i = 0; i < 2;i++){
+				if(i == 1){indx = 4;}
+				System.out.print("Give type of the course ");
+				timeTable[indx + 0] = sca.next();
+				System.out.print("Give venue for the course ");
+				timeTable[indx+ 1] = sca.next();
+				System.out.print("Give weekday for the course ");
+				timeTable[indx + 2] = sca.next();
+				System.out.print("Give time for the course ");
+				timeTable[indx + 3] = sca.next();
+			}
+
+			String[] staff = {"888", "777"};
+			
 			Course course = new Course(code, name, index, capacity, vacancy, school,
-				waitingList, timeTable);
+				waitingList, timeTable,staff);
 			courseList.addCourse(course);
 			// for(Course c : courseList.getCourses()){
 			// 	System.out.println(c.getCourseName());
@@ -154,6 +170,7 @@ public class StaffApp{
 			// 		System.out.println(s);
 			// 	}
 			System.out.println("Course added!");
+			courseList.saveCourses();
 		}
 		catch(InputMismatchException e){
 		 	System.out.println("Error in inputs ");
@@ -167,35 +184,106 @@ public class StaffApp{
 			System.out.println("Course index could not be found");
 			start();			
 		}
-		int val = sc.nextInt();
-		System.out.print("What do you wish to change?")
+		
+		System.out.println("What do you wish to change?");
 		System.out.println("1. Code");
 		System.out.println("2. Name");
 		System.out.println("3. Index");
 		System.out.println("4. Capacity");
 		System.out.println("5. School");
 		System.out.println("6. Timetable");
-		System.out.println("7. Abort");
+		System.out.println("7. Staff");
+		System.out.println("8. Abort");
+		int val = sc.nextInt();
 		switch(val){
 			case(1):
-				course.setCode(sc.nextInt());
+				course.setCode(sc.nextLine());
 				System.out.println("Code changed!");
 				break;
 			case(2):
-				course.setCourseName(sc.nextLine())
+				course.setCourseName(sc.nextLine());
 				System.out.println("Name changed!");
 				break;
 			case(3):
-				
+				System.out.print("Give new index number");
+				int indTo = sc.nextInt();
+				course.setIndex(indTo);
+
+				for(Student student : studentlist.getStudents())
+					student.changeIndex(index, indTo);
+				System.out.println("Index changed!");
+				break;
 			case(4):
-			case(5):
-				if(course.setVacancy(sc.nextInt() == null){
+				ArrayList<Integer> IDs = new ArrayList<Integer>();
+				// Change capacity. If succesfull return array of IDs that can be registered
+				// to course
+				IDs = course.setCapacity(sc.nextInt());
+				if(IDs == null){
 					System.out.println("Vacancy could not be reduced because " +
 						"there is students in the waiting list");
 						break;
 					}
-
+				// Go through those IDs, add to the coures and send mail
+				for(Integer ID : IDs){
+					studentlist.addCourse(ID, course.getIndex());
+					studentlist.sendNotification(ID, course.getIndex());
+				}
+				System.out.println("Capacity changed!");
+				break;
+			case(5):
+				System.out.print("Give new school ");
+				String newSchool = sc.nextLine();
+				course.setSchool(newSchool);
+				System.out.println("School changed!");
+				break;
+			case(6):
+				String[] timeTable = new String[8];
+				System.out.println("Give two timetables for the course");
+				int indx = 0;
+				for(int i = 0; i < 2;i++){
+					if(i == 1){indx = 4;}
+					System.out.print("Give type of the course ");
+					timeTable[indx + 0] = sc.next();
+					System.out.print("Give venue for the course ");
+					timeTable[indx + 1] = sc.next();
+					System.out.print("Give weekday for the course ");
+					timeTable[indx + 2] = sc.next();
+					System.out.print("Give time for the course ");
+					timeTable[indx + 3] = sc.next();
+				}
+				course.setTimetable(timeTable);
+				System.out.println("Timetable updated!");
+				break;
+			case(7):
+				System.out.println("Give two staff personels ID");
+				System.out.print("First one: ");
+				String first = sc.next();
+				System.out.print("Second one: ");
+				String second = sc.next();
+				String[] staff = {first, second};
+				course.setStaff(staff);
+				System.out.println("Staff changed!");
+				break;
+			case(8): break;
+			default: break;
 		}
+		courseList.saveCourses();
+		studentlist.saveStudents();
+	}
+
+	public void checkVacancies(){
+		System.out.print("Give course name to check vacancies ");
+		Scanner sca = new Scanner(System.in);
+		String name = sca.nextLine();
+		ArrayList<Course> courses = courseList.findCourseByName(name);
+		if(courses.size() == 0){
+			System.out.println("Course name could not be found");
+			start();			
+		}
+		for(Course course : courses){
+			course.printInfo();
+		}
+
 	}
 
 	public void printStudentsByIndex(){

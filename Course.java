@@ -8,20 +8,20 @@ public class Course {
     protected int capacity; 
     protected int vacancy;
     protected String school;
-    //This removed because student class holds information who has what course
-    //and removing this minimizes dublicated information
-    //protected ArrayList<Integer> studentIDs = new ArrayList<Integer>();
+   
     /**
     * Waitlist of students 
     */
     protected ArrayList<Integer> waitingListIDs = new ArrayList<Integer>();
 
     //(type, venue, weekday, time)
-    protected String[] timeTable = new String[4];
+    protected String[] timeTable = new String[8];
     
+    protected String[] staff = new String[2];
+
     public Course(String code, String name, int index, int capacity, 
-        int vacancy, String school, 
-        ArrayList<Integer> waitingListIDs, String[] timeTable) {
+        int vacancy, String school, ArrayList<Integer> waitingListIDs, 
+        String[] timeTable, String[] staff) {
         this.courseCode=code;
         this.courseName=name;
         this.index = index;
@@ -30,6 +30,10 @@ public class Course {
         this.school = school;
         this.waitingListIDs = waitingListIDs;
         this.timeTable = timeTable;
+        this.staff = staff;
+    }
+    public String getCourseCode(){
+        return this.courseCode;
     }
     public void setCode(String code){
         this.courseCode = code;
@@ -44,20 +48,43 @@ public class Course {
     public int getIndex(){
         return this.index;
     }
+    public void setIndex(int index){
+        this.index = index;
+    }
+    public int getCapacity(){
+        return this.capacity;
+    }
     public int getVacancy(){
         return this.vacancy;
     }
+    public void setVacancy(int amount){
+        this.vacancy = amount;
+    }
+    public String getSchool(){
+        return this.school;
+    }
+    public void setSchool(String school){
+        this.school = school;
+    }
+    public String getStaff(int indx){
+        return this.staff[indx];
+    }
+    public void setStaff(String[] staff){
+        this.staff = staff;
+    }
     //Does not check that is there students in waiting list
-    public ArrayList<Integer> setVacancy(int amount){
-        ArrayList<Integer> = new ArrayList<Integer>();
-        if(amount > capa)
+    public ArrayList<Integer> setCapacity(int amount){
+        ArrayList<Integer> IDs= new ArrayList<Integer>();
+        if(amount < capacity && waitingListIDs.size() != 0)
             return null;
         if(waitingListIDs.size() != 0){
-            for(int i = 0; i < (amount - vacancy);i++){
-
+            for(int i = 0; i < (amount - capacity);i++){
+                IDs.add(waitingListIDs.get(0));
+                waitingListIDs.remove(0);
             }
         }
-        this.vacancy = amount;
+        this.capacity = amount;
+        return IDs;
 
     }
     public void reduceVacancy(){
@@ -75,6 +102,9 @@ public class Course {
     }
     public String[] getTimeTable(){
         return this.timeTable;
+    }
+    public void setTimetable(String[] timetable){
+        this.timeTable = timetable;
     }
     public ArrayList<Integer> getWaitingList(){
         return this.waitingListIDs;
@@ -94,8 +124,12 @@ public class Course {
     }
     public void printTimeTable(){
         System.out.print(this.index);
+        int counter = 0;
         for(String string:timeTable){
             System.out.print(" " + string);
+            if(counter == 4)
+                System.out.println("");
+            counter +=1;
         }
         System.out.println("");
     }

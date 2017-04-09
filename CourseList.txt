@@ -1,0 +1,3 @@
+cs2002|java|1234|10|9|SCI|lecture-T2-Monday-9-tut-tr-8-Wendnesday-9-|444|777|123|
+cs2002|java|4567|10|9|SCI|lecture-T5-Friday-9-tut-tr-1-Wendnesday-10-|888|777||
+cs4002|cpp|12|10|5|SCI|lecture-T5-Friday-8-tut-tr-5-Wendnesday-12-|888|777||

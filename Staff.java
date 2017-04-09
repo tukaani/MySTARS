@@ -16,9 +16,8 @@ public class Staff extends Person{
 	/**
 	* Staff's constructor
 	*/
-	public Staff(String name, int ID, String password, GENDER gender, 
-		String nationality, String title){
-		super(name, ID, password, gender, nationality)
-		this.title = title;
+	public Staff(String name, int ID, String password, String title){
+		super(name, ID, password, title);
+		
 	}
 }

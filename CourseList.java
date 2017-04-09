@@ -1,13 +1,38 @@
 import java.util.ArrayList;
+import java.io.IOException;
 
 public class CourseList {
 
 	private ArrayList<Course> courses = new ArrayList<Course>();
 
 	public CourseList(){
-		FileIO.loadCourses(this.courses);
+		
+		try{
+			TestFileIO.loadCourses(this.courses);
+			FileIO.saveCourses(this.courses);
+			//this.courses = FileIO.readCourses();
+			}
+		catch(IOException e){
+			System.out.println("Error reading courseList file: " + e);
+			}
 	}
+	public void loadCourses(){
+		try{
+			this.courses = FileIO.readCourses();
+		}
+		catch(IOException e ){
+			System.out.println("Error reading courseList file: " + e);
+		}
+	}
+	public void saveCourses(){
+		try{
+			FileIO.saveCourses(this.courses);
+		}
+		catch(IOException e ){
+			System.out.println("Error reading courseList file: " + e);
+		}
 
+	}
 	public ArrayList<Course> getCourses(){
 		return this.courses;
 	}
@@ -72,7 +97,9 @@ public class CourseList {
 		Course course1 = findCourseByIndex(ind1);
 		Course course2 = findCourseByIndex(ind2);
 		if (course1.getTimeTable()[2] == course2.getTimeTable()[2] &&
-			course1.getTimeTable()[3] == course2.getTimeTable()[3])
+			course1.getTimeTable()[3] == course2.getTimeTable()[3]
+			|| (course1.getTimeTable()[6] == course2.getTimeTable()[6]) &&
+			course1.getTimeTable()[7] == course2.getTimeTable()[7])
 			return false;
 		return true;
 	}

@@ -11,6 +11,8 @@ public class Person{
 	* Enum for person genders
 	*/
 	public enum GENDER{FEMALE, MALE}
+
+	public enum NOTIFICATION{MAIL,PHONE,MAILANDPHONE};
 	/**
 	* Name of the person
 	*/
@@ -37,6 +39,10 @@ public class Person{
 	*/
 	protected String title;
 
+	protected int phone;
+
+	//True is mail, fail is phone
+	protected NOTIFICATION notificationPref; 
 	/**
 	* Constructor for person class
 	* @param name Person's name
@@ -44,12 +50,15 @@ public class Person{
 	* @param gender Person's gender
 	* @param nationality Person's nationality
 	*/
-	public Person(String name, int ID, String password, GENDER gender, String nationality){
+	public Person(String name, int ID, String password, GENDER gender, String nationality, 
+		int phone, NOTIFICATION notificationPref){
 		this.name = name;
 		this.ID = ID;
 		this.password = password;
 		this.gender = gender;
 		this.nationality = nationality;
+		this.phone = phone;
+		this.notificationPref = notificationPref;
 	}
 	/**
 	* Constructor for person(staff) class
@@ -58,12 +67,10 @@ public class Person{
 	* @param gender Person's gender
 	* @param nationality Person's nationality
 	*/
-	public Person(String name, int ID, String password, GENDER gender, String nationality, String title){
+	public Person(String name, int ID, String password, String title){
 		this.name = name;
 		this.ID = ID;
 		this.password = password;
-		this.gender = gender;
-		this.nationality = nationality;
 		this.title = title;
 	}
 	/**
@@ -80,11 +87,29 @@ public class Person{
 	public int getID(){
 		return this.ID;
 	}
+	public String getPassword(){
+		return this.password;
+	}
+	public GENDER getGender(){
+		return this.gender;
+	}
+	public String getNationality(){
+		return this.nationality;
+	}
+	public String getTitle(){
+		return this.title;
+	}
 	public void printInfo(){
 		System.out.println(name + " " + ID);
 	}
-	public String getPassword(){
-		return this.password;
+	public void setNotPref(NOTIFICATION not){
+		this.notificationPref = not;
+	}
+	public int getPhone(){
+		return this.phone;
+	}
+	public NOTIFICATION getNotPref(){
+		return this.notificationPref;
 	}
 
 }

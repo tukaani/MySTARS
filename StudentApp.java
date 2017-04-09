@@ -88,18 +88,20 @@ public class StudentApp{
 	}
 	// NO ERROR CHECKING
 	public void addCourse(){
+		Scanner sca = new Scanner(System.in);
 		System.out.print("Give course name: ");
-		String name = sc.next();
+		String name = sca.nextLine();
 		ArrayList<Course> C = courseList.findCourseByName(name);
 		if(C.size() == 0){
 			System.out.println("Course name could not be found\n");
 			start();			
 		}
+		System.out.println("Timetable:");
 		for(Course course : C)
 			course.printTimeTable();
 		System.out.println("Write wanted index number: ");
 
-		int ind = sc.nextInt();
+		int ind = sca.nextInt();
 		if(!checkClash(ind)){
 			System.out.println("Clash!");
 		}
@@ -111,8 +113,10 @@ public class StudentApp{
 			System.out.println("Course added!");
 			courseList.reduceVacancy(ind);
 			studentlist.addCourse(student.getID(), ind);
+			
 		}
-
+		courseList.saveCourses();
+		studentlist.saveStudents();
 					
 	}
 
@@ -126,7 +130,7 @@ public class StudentApp{
 	public void dropCrourse(){
 
 		printCourses();
-		System.out.println("Write wanted index number: ");
+		System.out.print("Write wanted index number: ");
 		int ind = sc.nextInt();
 		ArrayList<Integer> indexes = new ArrayList<Integer>();
 		indexes = student.getIndexes();
@@ -139,8 +143,10 @@ public class StudentApp{
 		Integer ID = courseList.increaseVacancy(ind);
 		if(ID != 0){
 			studentlist.addCourse(ID, ind);
-			studentlist.sendMail(ID, ind);
+			studentlist.sendNotification(ID, ind);
 		}
+		courseList.saveCourses();
+		studentlist.saveStudents();
 
 	}
 
@@ -148,6 +154,10 @@ public class StudentApp{
 		ArrayList<Integer> indexes = new ArrayList<Integer>();
 
 		indexes = student.getIndexes();
+		if(indexes.size() == 0){
+			System.out.println("No courses has been registered!");
+			return;
+		}
 		for(Integer i: indexes){
 			for(Course c:courseList.getCourses()){
 				if(i.equals(c.getIndex())){
@@ -158,8 +168,9 @@ public class StudentApp{
 
 	}
 	public void checkVacancies(){
+		Scanner sca = new Scanner(System.in);
 		System.out.println("Write course name: ");
-		String name = sc.next();
+		String name = sca.nextLine();
 
 		ArrayList<Course> C = courseList.findCourseByName(name);
 		if(C.size() == 0){
@@ -218,25 +229,29 @@ public class StudentApp{
 			Integer ID = courseList.increaseVacancy(indFrom);
 			if(ID != 0){
 				studentlist.addCourse(ID, indFrom);
-				studentlist.sendMail(ID, indFrom);
+				studentlist.sendNotification(ID, indFrom);
 		}
 			System.out.println("Index changed!");
+			courseList.saveCourses();
+			studentlist.saveStudents();
 			
 		}
 	}
 
 	public void changeNotPref(){
-		System.out.print("Choose preferedded notification. 1. Mail 2. Phone. (Default is mail) ");
+		System.out.print("Choose preferedded notification. 1. Mail 2. Phone 3. Both ");
 
 		int pref = sc.nextInt();
 		System.out.println(studentlist.findStudentByID(student.getID()).getNotPref());
 		if(pref == 1)
-			studentlist.findStudentByID(student.getID()).setNotPref(true);
+			studentlist.findStudentByID(student.getID()).setNotPref(Person.NOTIFICATION.MAIL);
 		else if(pref == 2){
-			studentlist.findStudentByID(student.getID()).setNotPref(false);
+			studentlist.findStudentByID(student.getID()).setNotPref(Person.NOTIFICATION.PHONE);
 		}
 		else
-			System.out.println("Nothing was changed!");
+			studentlist.findStudentByID(student.getID()).setNotPref(Person.NOTIFICATION.MAILANDPHONE);
+
+		studentlist.saveStudents();
 	}
 	
 }
