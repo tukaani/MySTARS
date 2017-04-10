@@ -32,14 +32,17 @@ public class StudentApp{
 				&& student.checkDate()){
 					this.student = student;
 					System.out.println("Welcome " + this.student.getName());
-					
-					start();
+					int res = start();
+					if(res == -1){
+						System.out.println("Logging out!");
+						return;
+					}
 				}
 		}
 		System.out.println("Login failed!");
 		return;
 	}
-	public void start(){
+	public int start(){
 		int ch = 0;
 		do{
 			printMenu();
@@ -61,17 +64,20 @@ public class StudentApp{
 					changeIndex();
 					break;
 				case(6):
-					// IMPLEMENT ME :(
+					swapIndex();
 					break;
 				case(7):
 					changeNotPref();
 					break;
+				case(8):
+					return -1;
 				default:
-					return;
+					System.out.println("Invalid input");
+					break;
 			}
 
 		}while(ch < 8);
-		
+		return 1;
 	}
 	public void printMenu(){
 		System.out.println("Choose from options below");
@@ -82,10 +88,12 @@ public class StudentApp{
 		System.out.println("5. Change index number of course");
 		System.out.println("6. Swap index number with with another student");
 		System.out.println("7. Change notification preference");
+		System.out.println("8. Log out");
 	}
 	// NO ERROR CHECKING
 	public void addCourse(){
 		Scanner sca = new Scanner(System.in);
+		courseList.printAllCourses();
 		System.out.print("Give course name: ");
 		String name = sca.nextLine();
 		ArrayList<Course> C = courseList.findCourseByName(name);
@@ -99,7 +107,7 @@ public class StudentApp{
 		System.out.println("Write wanted index number: ");
 
 		int ind = sca.nextInt();
-		if(!checkClash(ind)){
+		if(!checkClash(ind, this.student)){
 			System.out.println("Clash!");
 		}
 		else if(courseList.getVacancy(ind) == 0){
@@ -117,8 +125,9 @@ public class StudentApp{
 					
 	}
 
-	public boolean checkClash(int ind){
-		for(Integer i : this.student.getIndexes()){
+	public boolean checkClash(int ind, Student stud){
+		System.out.println(stud.getID());
+		for(Integer i : stud.getIndexes()){
 			if(!courseList.checkClash(i, ind))
 				return false;
 		}
@@ -213,7 +222,7 @@ public class StudentApp{
 		System.out.print("Write index number to swap");
 		int indTo = sc.nextInt();
 
-		if(!checkClash(indTo)){
+		if(!checkClash(indTo, this.student)){
 			System.out.println("Clash!");
 		}
 		else if(courseList.getVacancy(indTo) == 0){
@@ -233,6 +242,43 @@ public class StudentApp{
 			studentlist.saveStudents();
 			
 		}
+	}
+
+	public void swapIndex(){
+		Scanner sca = new Scanner(System.in);
+		System.out.print("Give index to swap: ");
+		int indFrom = sca.nextInt();
+		if(student.findIndex(indFrom) == -1){
+			System.out.println("Index could not be found. Aborting");
+			return;
+		}
+
+		System.out.print("Give another users ID: ");
+		int ID = sca.nextInt();
+
+		Student target = studentlist.findStudentByID(ID);
+		if(target == null){
+			System.out.println("Student could not be found. Aborting");
+			return;
+		}
+		
+		System.out.print("Give target student's index number to swap");
+		int indTo = sca.nextInt();
+		if(target.findIndex(indTo) == -1){
+			System.out.println("Index could not be found. Aborting");
+			return;	
+		}
+
+		if(!checkClash(indTo, this.student) || !checkClash(indFrom, target)){
+			System.out.println("Index swap couses clash! Aborting");
+			return;
+		}
+		student.changeIndex(indFrom, indTo);
+		target.changeIndex(indTo, indFrom);
+		System.out.println("Indexes swapped succesfully!");
+		courseList.saveCourses();
+		studentlist.saveStudents();
+
 	}
 
 	public void changeNotPref(){

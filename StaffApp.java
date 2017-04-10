@@ -18,14 +18,18 @@ public class StaffApp{
 			if(Integer.toString(st.getID()).equals(ID) &&
 				st.getPassword().equals(new String(passwd))){
 				System.out.println("Welcome " + st.getName());
-				start();
+				int res = start();
+				if(res == -1){
+					System.out.println("Logging out");
+					return;
+				}
 			}
 		}
 		
 		System.out.println("Login failed!");
 		return;
 	}
-	public void start(){
+	public int start(){
 		int ch = 0;
 		do{
 			printMenu();
@@ -52,10 +56,12 @@ public class StaffApp{
 				case(7):
 					printStudentsByCourse();
 					break;
+				case(8):
+					return -1;
 			}
 
-		}while(ch < 7);
-		
+		}while(ch < 9);
+		return 1;
 	}
 
 	public void editAccessPeriod(){
@@ -90,6 +96,11 @@ public class StaffApp{
 			System.out.println("New student will be created but without any courses");
 			System.out.print("Give name ");
 			String name = sca.nextLine();
+			Student st = studentlist.findStudentByName(name);
+			if(st != null){
+				System.out.println("Student exists already. Aborting");
+				return;
+			}
 			System.out.print("Give ID ");
 			int ID = sca.nextInt();
 			System.out.print("Give password ");
@@ -114,12 +125,13 @@ public class StaffApp{
 				startDate, endDate, phone, Person.NOTIFICATION.MAIL);
 			studentlist.addStudent(student);
 
-			System.out.println("Student added!");
+			System.out.println("Student added!\n");
+			studentlist.printStudentList();
 			courseList.saveCourses();
 			studentlist.saveStudents();
 		}
 		catch(InputMismatchException e){
-		 	System.out.println("Error in inputs ");
+		 	System.out.println("Error in inputs. Aborting");
 		 }
 	}
 
@@ -132,6 +144,10 @@ public class StaffApp{
 			String name = sca.nextLine();
 			System.out.print("Give index number for the course ");
 			int index = sca.nextInt();
+			if(courseList.findCourseByIndex(index) != null){
+				System.out.println("Course with " + index + " exists already. Aborting");
+				return;
+			}
 			System.out.print("Give capacity for the course ");
 			int capacity = sca.nextInt();
 			System.out.print("Give vacancy ");
@@ -154,18 +170,26 @@ public class StaffApp{
 				timeTable[indx + 3] = sca.next();
 			}
 
-			String[] staff = {"888", "777"};
-			
+			String[] staff = new String[2];
+			System.out.print("Give first staff personel's ID");
+			String staff1 = sca.next();
+			if(staffList.findStaffByID(Integer.parseInt(staff1)) == null){
+				System.out.println("Staff " + staff1 + " could not be found. Aborting");
+				return;
+			}
+			System.out.print("Give second staff personel's ID");
+			String staff2 = sca.next();
+			if(staffList.findStaffByID(Integer.parseInt(staff2)) == null){
+				System.out.println("Staff " + staff2 + " could not be found. Aborting");
+				return;
+			}
+			staff[0] = staff1;staff[1] = staff2;
 			Course course = new Course(code, name, index, capacity, vacancy, school,
 				waitingList, timeTable,staff);
 			courseList.addCourse(course);
-			// for(Course c : courseList.getCourses()){
-			// 	System.out.println(c.getCourseName());
-			// 	for(String s : c.getTimeTable())
-			// 		System.out.println(s);
-			// 	}
 			System.out.println("Course added!");
 			courseList.saveCourses();
+			courseList.printAllCourses();
 		}
 		catch(InputMismatchException e){
 		 	System.out.println("Error in inputs ");
@@ -202,6 +226,10 @@ public class StaffApp{
 			case(3):
 				System.out.print("Give new index number");
 				int indTo = sc.nextInt();
+				if(courseList.findCourseByIndex(indTo) != null){
+					System.out.println("Course with " + indTo + " exists already. Aborting");
+					return;
+				}
 				course.setIndex(indTo);
 
 				for(Student student : studentlist.getStudents())
@@ -253,8 +281,16 @@ public class StaffApp{
 				System.out.println("Give two staff personels ID");
 				System.out.print("First one: ");
 				String first = sc.next();
+				if(staffList.findStaffByID(Integer.parseInt(first)) == null){
+					System.out.println("Staff " + first + " could not be found. Aborting");
+					return;
+				}
 				System.out.print("Second one: ");
 				String second = sc.next();
+				if(staffList.findStaffByID(Integer.parseInt(second)) == null){
+					System.out.println("Staff " + second + " could not be found. Aborting");
+					return;
+				}
 				String[] staff = {first, second};
 				course.setStaff(staff);
 				System.out.println("Staff changed!");
@@ -264,6 +300,7 @@ public class StaffApp{
 		}
 		courseList.saveCourses();
 		studentlist.saveStudents();
+		courseList.printAllCourses();
 	}
 
 	public void checkVacancies(){
@@ -284,6 +321,10 @@ public class StaffApp{
 	public void printStudentsByIndex(){
 		System.out.print("Give index number ");
 		int ind = sc.nextInt();
+		if(courseList.findCourseByIndex(ind) == null){
+			System.out.println("No course could be found with that index number. Aborting");
+			return;
+		}
 		studentlist.printStudentsByIndex(ind);
 
 	}
@@ -291,14 +332,14 @@ public class StaffApp{
 	//list all possible indexes
 	//go throuhg student list to find out who has those indexes, 
 	//	add those students to list
-	// prin the list
+	// print the list
 	public void printStudentsByCourse(){
 		System.out.print("Give course name where to list students: ");
 		String name = sc.next();
 		ArrayList<Course> c = courseList.findCourseByName(name);
 		if(c.size() == 0){
 			System.out.println("Course name could not be found");
-			start();			
+			return;
 		}
 		studentlist.printStudentsInCourse(c);
 	}
@@ -312,6 +353,7 @@ public class StaffApp{
 		System.out.println("6. Print student list by index number");
 			//all students registered for the selected course
 		System.out.println("7. Print student list by course"); 
+		System.out.println("8. Log out");
 	}
 
 }	

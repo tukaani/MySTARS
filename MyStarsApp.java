@@ -6,7 +6,7 @@ public class MyStarsApp{
 		Scanner sc = new Scanner(System.in);
 		
 		while(true){
-			System.out.print("Welcome to login! 1. Student or 2. admin? Write 3 to quit");
+			System.out.print("Welcome to login! 1. Student or 2. admin? Write 3 to quit ");
 			int ch = sc.nextInt();
 			if(ch== 1){
 				StudentApp studentApp = new StudentApp();

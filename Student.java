@@ -51,6 +51,7 @@ public class Student extends Person{
 	public void setStartDate(String date){
 		this.startDate = parseDate(date);
 	}
+	
 	// Format: "2017-06-14"
 	public void setEndDate(String date){
 		this.endDate = parseDate(date);
@@ -66,6 +67,14 @@ public class Student extends Person{
 	}
 	public ArrayList<Integer> getIndexes(){
 		return this.indexes;
+	}
+	public Integer findIndex(int ind){
+		for(Integer i : indexes){
+			if(i == ind){
+				return i;
+			}
+		}
+		return -1;
 	}
 	public void printIndexes(){
 		for(Integer i : indexes){

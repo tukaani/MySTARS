@@ -21,4 +21,12 @@ public class StaffList {
 	public ArrayList<Staff> getStaff(){
 		return this.staff;
 	}
+
+	public Staff findStaffByID(int ID){
+		for(Staff s : staff){
+			if(s.getID() == ID)
+				return s;
+		}
+		return null;
+	}
 }

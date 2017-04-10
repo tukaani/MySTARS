@@ -49,20 +49,30 @@ public class studentList {
 		}
 		return null;
 	}
+	public Student findStudentByName(String name){
+		for(Student student : students){
+			if(student.getName().equals(name)){
+				return student;
+			}
+		}
+		return null;
+	}
 
 	public void printStudentsInCourse(ArrayList<Course> courses){
 		//ArrayList<Student> students = new ArrayList<Student>();
 		//Go throught index list
+		boolean flag = false;
 		for(Course c : courses){
-			//Gompare each index in student list
+			//Compare each index in student list
 			for(Student s : this.students){
 				if(s.getIndexes().indexOf(c.getIndex()) != -1){
 					System.out.println(s.getName() + " " + c.getIndex());
-					//students.add(s);
+					flag = true;
 					}
 			}
 		}
-		//return students;
+		if(!flag)
+			System.out.println("No student is registered to that index number");
 	}
 
 	public void addCourse(int ID, int ind){
@@ -100,7 +110,7 @@ public class studentList {
 	}
 	public void printStudentList(){
 		for(Student student : students){
-			System.out.println(student.getName());
+			System.out.println(student.getName() + " " + student.getID());
 		}
 	}
 }

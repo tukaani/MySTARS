@@ -213,7 +213,6 @@ public class FileIO{
 		  int count = stok2.countTokens();
 		  for (int j=0;j<count;j++){ 
 			  String part=stok2.nextToken();
-			  System.out.println(part);
 			  waitingList.add(Integer.parseInt(part));
 		  }
 		  Course cour=new Course(courseCode,courseName,index, capacity, vacancy, school, 

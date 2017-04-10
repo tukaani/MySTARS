@@ -9,3 +9,10 @@ NOTES:
 		- there can be only two timetables for each course
 		- user input correct values
 		- no "database" recovery in case of incorrect user input or crash
+
+Added: 
+	-Student: findIndex()
+			: findStudentByName()
+	Courselist: printAllCourses()
+	stafflist: findStaffByID()
+	studentApp: swapIndex()

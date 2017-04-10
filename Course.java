@@ -117,17 +117,19 @@ public class Course {
         System.out.print("Name: " + this.courseName + " ");
         System.out.print("Index: " + this.index + " ");
         System.out.print("Vacancy: " + this.vacancy + " ");
+        System.out.print("Capacity: " + this.capacity + " ");
+        System.out.print(" :: ");
         for(String string:timeTable){
             System.out.print(" " + string + " ");
         }
         System.out.println("");
     }
     public void printTimeTable(){
-        System.out.print(this.index);
+        System.out.println(this.index);
         int counter = 0;
         for(String string:timeTable){
             System.out.print(" " + string);
-            if(counter == 4)
+            if(counter == 3)
                 System.out.println("");
             counter +=1;
         }

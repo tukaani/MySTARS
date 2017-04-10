@@ -9,8 +9,8 @@ public class CourseList {
 		
 		try{
 			//TestFileIO.loadCourses(this.courses);
-			FileIO.saveCourses(this.courses);
-			//this.courses = FileIO.readCourses();
+			//FileIO.saveCourses(this.courses);
+			this.courses = FileIO.readCourses();
 			}
 		catch(IOException e){
 			System.out.println("Error reading courseList file: " + e);
@@ -86,7 +86,10 @@ public class CourseList {
 		}
 
 	}
-	
+	public void printAllCourses(){
+		for(Course c : courses)
+			c.printInfo();
+	}
 	public void printCourses(String name){
 		ArrayList<Course> C = findCourseByName(name);
 		for(Course c : C){
@@ -96,11 +99,12 @@ public class CourseList {
 	public boolean checkClash(int ind1, int ind2){
 		Course course1 = findCourseByIndex(ind1);
 		Course course2 = findCourseByIndex(ind2);
+
 		if (course1.getTimeTable()[2] == course2.getTimeTable()[2] &&
 			course1.getTimeTable()[3] == course2.getTimeTable()[3]
 			|| (course1.getTimeTable()[6] == course2.getTimeTable()[6]) &&
 			course1.getTimeTable()[7] == course2.getTimeTable()[7])
-			return false;
+				return false;
 		return true;
 	}
 }
