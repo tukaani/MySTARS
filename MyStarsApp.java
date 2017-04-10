@@ -1,6 +1,10 @@
 import java.util.Scanner;
 
-
+/**
+ The main app for MySTARS
+ @version 1.0
+ @since 2017-04-10
+*/
 public class MyStarsApp{
 	public static void main(String[] args){
 		Scanner sc = new Scanner(System.in);

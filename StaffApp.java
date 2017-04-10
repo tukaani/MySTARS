@@ -2,13 +2,29 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.Console;
 import java.util.InputMismatchException;
+/**
+ Handles Admins functionalites
+ @version 1.0
+ @since 2017-04-10
+*/
 public class StaffApp{
 
 	private Scanner sc = new Scanner(System.in);
+	/**
+	* Creates StudentList class
+	*/
 	private studentList studentlist = new studentList();
+	/**
+	* Creates CourseList class
+	*/
 	private CourseList courseList = new CourseList();
+	/**
+	* Creates StaffList class
+	*/
 	private StaffList staffList = new StaffList();
-
+	/**
+	*  Handles Staff login.
+	*/
 	public void loginStaff(){
 		Console cnsl = System.console();
 		String ID = cnsl.readLine("Give your ID number: ");
@@ -29,6 +45,9 @@ public class StaffApp{
 		System.out.println("Login failed!");
 		return;
 	}
+	/**
+	* Handless StaffApp's control flow.
+	*/
 	public int start(){
 		int ch = 0;
 		do{
@@ -63,7 +82,9 @@ public class StaffApp{
 		}while(ch < 9);
 		return 1;
 	}
-
+	/**
+	* Edit students access period for MySTARS.
+	*/
 	public void editAccessPeriod(){
 		System.out.println("Give students ID ");
 		int ID = sc.nextInt();
@@ -89,7 +110,9 @@ public class StaffApp{
 		}
 		System.out.println("Access period succesfully changed!");
 	}
-
+	/**
+	* Adds new student to MySTARS.
+	*/
 	public void addStudent(){
 		try {
 			Scanner sca = new Scanner(System.in);
@@ -134,7 +157,9 @@ public class StaffApp{
 		 	System.out.println("Error in inputs. Aborting");
 		 }
 	}
-
+	/**
+	* Adds new course to MySTARS.
+	*/
 	public void addCourse(){
 		try {
 			Scanner sca = new Scanner(System.in);
@@ -195,6 +220,9 @@ public class StaffApp{
 		 	System.out.println("Error in inputs ");
 		 }
 	}
+	/**
+	* Updates course
+	*/
 	public void updateCourse(){
 		System.out.print("Given index number for the course to update ");
 		int index = sc.nextInt();
@@ -303,6 +331,9 @@ public class StaffApp{
 		courseList.printAllCourses();
 	}
 
+	/**
+	* Print courses vacancies
+	*/
 	public void checkVacancies(){
 		System.out.print("Give course name to check vacancies ");
 		Scanner sca = new Scanner(System.in);
@@ -317,7 +348,9 @@ public class StaffApp{
 		}
 
 	}
-
+	/**
+	* Prints students who have been to registered for on index
+	*/
 	public void printStudentsByIndex(){
 		System.out.print("Give index number ");
 		int ind = sc.nextInt();
@@ -333,6 +366,9 @@ public class StaffApp{
 	//go throuhg student list to find out who has those indexes, 
 	//	add those students to list
 	// print the list
+	/**
+	* Prints students who has been registered to course.
+	*/
 	public void printStudentsByCourse(){
 		System.out.print("Give course name where to list students: ");
 		String name = sc.next();
@@ -343,6 +379,9 @@ public class StaffApp{
 		}
 		studentlist.printStudentsInCourse(c);
 	}
+	/**
+	* Print menu for StaffApp
+	*/
 	public void printMenu(){
 		System.out.println("Choose from options below");
 		System.out.println("1. Edit students access period");

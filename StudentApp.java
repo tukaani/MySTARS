@@ -1,26 +1,33 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.Console;
-
+/**
+ Handles Students functionalites
+ @version 1.0
+ @since 2017-04-10
+*/
 public class StudentApp{
 	private Scanner sc = new Scanner(System.in);
 
 	/**
-	* student variable holds current users student instance
+	* Student variable holds current users student instance
 	*/
 	private Student student;
-	private studentList studentlist = new studentList();
-	private CourseList courseList = new CourseList();
 	/**
-	* Course that student is currently checking. Saved for intance variable so
-	* we don't need to pass it around
+	* Creates StudentList class
 	*/
-	//public Course course;
+	private studentList studentlist = new studentList();
+	/**
+	* Creates CourseList class
+	*/
+	private CourseList courseList = new CourseList();
 	
 	public StudentApp(){
 
 	}
-
+	/**
+	* Handles student login
+	*/
 	public void loginStudent(){
 		Console cnsl = System.console();
 		String matricN = cnsl.readLine("Give your matriculation number: ");
@@ -42,6 +49,9 @@ public class StudentApp{
 		System.out.println("Login failed!");
 		return;
 	}
+	/**
+	* StudentApp's control flow
+	*/
 	public int start(){
 		int ch = 0;
 		do{
@@ -79,6 +89,9 @@ public class StudentApp{
 		}while(ch < 8);
 		return 1;
 	}
+	/**
+	* Prints menu
+	*/
 	public void printMenu(){
 		System.out.println("Choose from options below");
 		System.out.println("1. Add course");
@@ -90,7 +103,9 @@ public class StudentApp{
 		System.out.println("7. Change notification preference");
 		System.out.println("8. Log out");
 	}
-	// NO ERROR CHECKING
+	/**
+	* Add course for student
+	*/
 	public void addCourse(){
 		Scanner sca = new Scanner(System.in);
 		courseList.printAllCourses();
@@ -124,7 +139,12 @@ public class StudentApp{
 		studentlist.saveStudents();
 					
 	}
-
+	/**
+	* Check if there is class if index is added to student
+	* @param ind Index to check
+	* @param stud Student instance
+	* @return returns true if there is no clash, false otherwise
+	*/
 	public boolean checkClash(int ind, Student stud){
 		System.out.println(stud.getID());
 		for(Integer i : stud.getIndexes()){
@@ -133,6 +153,9 @@ public class StudentApp{
 		}
 		return true;
 	}
+	/**
+	* Drop course
+	*/
 	public void dropCrourse(){
 
 		printCourses();
@@ -155,7 +178,9 @@ public class StudentApp{
 		studentlist.saveStudents();
 
 	}
-
+	/**
+	* Print registered courses
+	*/
 	public void printCourses(){
 		ArrayList<Integer> indexes = new ArrayList<Integer>();
 
@@ -173,6 +198,9 @@ public class StudentApp{
 		}
 
 	}
+	/**
+	* Check if course has vacancies available
+	*/
 	public void checkVacancies(){
 		Scanner sca = new Scanner(System.in);
 		System.out.println("Write course name: ");
@@ -199,6 +227,9 @@ public class StudentApp{
 	//reduce vancancy for that, increase for the other
 	// add new index in student instance
 	//check is anyone in the waiting list in the other course
+	/**
+	* Change course(index) for student
+	*/
 	public void changeIndex(){
 		printCourses();
 		System.out.println("Write index you wish to change: ");
@@ -243,7 +274,9 @@ public class StudentApp{
 			
 		}
 	}
-
+	/**
+	* Swaps course(index) between students.
+	*/
 	public void swapIndex(){
 		Scanner sca = new Scanner(System.in);
 		System.out.print("Give index to swap: ");
@@ -280,7 +313,9 @@ public class StudentApp{
 		studentlist.saveStudents();
 
 	}
-
+	/**
+	* Changes students notification preference
+	*/
 	public void changeNotPref(){
 		System.out.print("Choose preferedded notification. 1. Mail 2. Phone 3. Both ");
 

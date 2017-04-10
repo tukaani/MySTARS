@@ -7,17 +7,48 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.NoSuchElementException;
+
+/**
+ Handles file reading and writing
+ @version 1.0
+ @since 2017-04-10
+*/
 public class FileIO{
-
+	/**
+	* Filename variable for StudentList.txt
+	*/
 	public static String filenameStud = "StudentList.txt";
+	/**
+	* Filename variable for CourseList.txt
+	*/
 	public static String filenameCour = "CourseList.txt";
+	/**
+	* Filename variable for StaffList.txt
+	*/
 	public static String filenameStaff = "StaffList.txt";
+	/**
+	* Variable for Student Arraylist
+	*/
 	public static ArrayList<Student> students = new ArrayList<Student>();
+	/**
+	* Variable for Course arraylist
+	*/
 	public static ArrayList<Course> courses = new ArrayList<Course>();
+	/**
+	* Separator for files
+	*/
 	public static final String SEPARATOR="|";
+	/**
+	* Separator for files
+	*/
 	public static final String SEPARATOR2 = "!";
+	/**
+	* Separator for files
+	*/
 	public static final String SEPARATOR3 = "-";
-
+	/**
+	* Prepares file writing to Student file
+	*/
 	public static void saveStudents(ArrayList<Student> studlist) throws IOException {
 		
 		List students = new ArrayList();
@@ -54,7 +85,9 @@ public class FileIO{
 		}
 		write(filenameStud, students);
 	}
-	
+	/**
+	* Prepares file writing to Course file
+	*/
 	public static void saveCourses(ArrayList<Course> courselist) throws IOException {
 
 		List courses = new ArrayList();
@@ -98,6 +131,9 @@ public class FileIO{
 		}	
 		write(filenameCour, courses);
 	}
+	/**
+	* Writes to file
+	*/
   public static void write(String filename, List data) throws IOException  {
     PrintWriter out = new PrintWriter(new FileWriter(filename));
 
@@ -110,7 +146,10 @@ public class FileIO{
       out.close();
     }
   }
-
+  /**
+	* Reads Student file
+	* @return ArrayList Students
+	*/
   public static ArrayList readStudents() throws IOException {
 	  ArrayList stringArray=(ArrayList)read(filenameStud);
 	  ArrayList students = new ArrayList();
@@ -166,6 +205,10 @@ public class FileIO{
 	  }
 	  return students;
   }
+  /**
+	* Reads Course file
+	* @return ArrayList Courses
+	*/
   public static ArrayList readCourses() throws IOException{
   		
 
@@ -222,6 +265,9 @@ public class FileIO{
 	  
 	  return courses;
   }
+  	/**
+	* Reads from Staff file
+	*/
  	public static ArrayList readStaff() throws IOException {
  		ArrayList stringArray=(ArrayList)read(filenameStaff);
 	 	ArrayList<Staff> staff = new ArrayList();

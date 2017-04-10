@@ -11,8 +11,7 @@ NOTES:
 		- no "database" recovery in case of incorrect user input or crash
 
 Added: 
-	-Student: findIndex()
-			: findStudentByName()
+	Student: findIndex(), findStudentByName()
 	Courselist: printAllCourses()
 	stafflist: findStaffByID()
 	studentApp: swapIndex()
