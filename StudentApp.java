@@ -16,15 +16,12 @@ public class StudentApp{
 	/**
 	* Creates StudentList class
 	*/
-	private studentList studentlist = new studentList();
+	private StudentList studentList = new StudentList();
 	/**
 	* Creates CourseList class
 	*/
 	private CourseList courseList = new CourseList();
 	
-	public StudentApp(){
-
-	}
 	/**
 	* Handles student login
 	*/
@@ -33,7 +30,7 @@ public class StudentApp{
 		String matricN = cnsl.readLine("Give your matriculation number: ");
 		char[] passwd = cnsl.readPassword("password: ");
 
-		for(Student student:studentlist.getStudents()){
+		for(Student student:studentList.getStudents()){
 			if(Integer.toString(student.getID()).equals(matricN) 
 				&& student.getPassword().equals(new String(passwd))
 				&& student.checkDate()){
@@ -132,11 +129,11 @@ public class StudentApp{
 		else{
 			System.out.println("Course added!");
 			courseList.reduceVacancy(ind);
-			studentlist.addCourse(student.getID(), ind);
+			studentList.addCourse(student.getID(), ind);
 			
 		}
 		courseList.saveCourses();
-		studentlist.saveStudents();
+		studentList.saveStudents();
 					
 	}
 	/**
@@ -167,15 +164,15 @@ public class StudentApp{
 			System.out.println("Index was not in list");
 			start();
 		}
-		studentlist.removeCourse(student.getID(), ind);
+		studentList.removeCourse(student.getID(), ind);
 		System.out.println("Course removed!");
 		Integer ID = courseList.increaseVacancy(ind);
 		if(ID != 0){
-			studentlist.addCourse(ID, ind);
-			studentlist.sendNotification(ID, ind);
+			studentList.addCourse(ID, ind);
+			studentList.sendNotification(ID, ind);
 		}
 		courseList.saveCourses();
-		studentlist.saveStudents();
+		studentList.saveStudents();
 
 	}
 	/**
@@ -260,17 +257,17 @@ public class StudentApp{
 			System.out.println("Course (index) is full.");
 		}
 		else{
-			studentlist.changeIndex(indFrom, indTo, this.student.getID());	
+			studentList.changeIndex(indFrom, indTo, this.student.getID());	
 			
 			courseList.reduceVacancy(indTo);
 			Integer ID = courseList.increaseVacancy(indFrom);
 			if(ID != 0){
-				studentlist.addCourse(ID, indFrom);
-				studentlist.sendNotification(ID, indFrom);
+				studentList.addCourse(ID, indFrom);
+				studentList.sendNotification(ID, indFrom);
 		}
 			System.out.println("Index changed!");
 			courseList.saveCourses();
-			studentlist.saveStudents();
+			studentList.saveStudents();
 			
 		}
 	}
@@ -289,7 +286,7 @@ public class StudentApp{
 		System.out.print("Give another users ID: ");
 		int ID = sca.nextInt();
 
-		Student target = studentlist.findStudentByID(ID);
+		Student target = studentList.findStudentByID(ID);
 		if(target == null){
 			System.out.println("Student could not be found. Aborting");
 			return;
@@ -303,14 +300,14 @@ public class StudentApp{
 		}
 
 		if(!checkClash(indTo, this.student) || !checkClash(indFrom, target)){
-			System.out.println("Index swap couses clash! Aborting");
+			System.out.println("Index swap causes clash! Aborting");
 			return;
 		}
 		student.changeIndex(indFrom, indTo);
 		target.changeIndex(indTo, indFrom);
 		System.out.println("Indexes swapped succesfully!");
 		courseList.saveCourses();
-		studentlist.saveStudents();
+		studentList.saveStudents();
 
 	}
 	/**
@@ -320,16 +317,16 @@ public class StudentApp{
 		System.out.print("Choose preferedded notification. 1. Mail 2. Phone 3. Both ");
 
 		int pref = sc.nextInt();
-		System.out.println(studentlist.findStudentByID(student.getID()).getNotPref());
+		System.out.println(studentList.findStudentByID(student.getID()).getNotPref());
 		if(pref == 1)
-			studentlist.findStudentByID(student.getID()).setNotPref(Person.NOTIFICATION.MAIL);
+			studentList.findStudentByID(student.getID()).setNotPref(Person.NOTIFICATION.MAIL);
 		else if(pref == 2){
-			studentlist.findStudentByID(student.getID()).setNotPref(Person.NOTIFICATION.PHONE);
+			studentList.findStudentByID(student.getID()).setNotPref(Person.NOTIFICATION.PHONE);
 		}
 		else
-			studentlist.findStudentByID(student.getID()).setNotPref(Person.NOTIFICATION.MAILANDPHONE);
+			studentList.findStudentByID(student.getID()).setNotPref(Person.NOTIFICATION.MAILANDPHONE);
 
-		studentlist.saveStudents();
+		studentList.saveStudents();
 	}
 	
 }

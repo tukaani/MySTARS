@@ -13,7 +13,7 @@ public class StaffApp{
 	/**
 	* Creates StudentList class
 	*/
-	private studentList studentlist = new studentList();
+	private StudentList studentList = new StudentList();
 	/**
 	* Creates CourseList class
 	*/
@@ -89,7 +89,7 @@ public class StaffApp{
 		System.out.println("Give students ID ");
 		int ID = sc.nextInt();
 
-		Student student = studentlist.findStudentByID(ID);
+		Student student = studentList.findStudentByID(ID);
 		if(student == null){
 			System.out.println("Student could not be found");
 			return;
@@ -119,7 +119,7 @@ public class StaffApp{
 			System.out.println("New student will be created but without any courses");
 			System.out.print("Give name ");
 			String name = sca.nextLine();
-			Student st = studentlist.findStudentByName(name);
+			Student st = studentList.findStudentByName(name);
 			if(st != null){
 				System.out.println("Student exists already. Aborting");
 				return;
@@ -146,12 +146,12 @@ public class StaffApp{
 			int phone = sca.nextInt();
 			Student student = new Student(name, ID, password, gender, nationality, indexes,
 				startDate, endDate, phone, Person.NOTIFICATION.MAIL);
-			studentlist.addStudent(student);
+			studentList.addStudent(student);
 
 			System.out.println("Student added!\n");
-			studentlist.printStudentList();
+			studentList.printStudentList();
 			courseList.saveCourses();
-			studentlist.saveStudents();
+			studentList.saveStudents();
 		}
 		catch(InputMismatchException e){
 		 	System.out.println("Error in inputs. Aborting");
@@ -260,7 +260,7 @@ public class StaffApp{
 				}
 				course.setIndex(indTo);
 
-				for(Student student : studentlist.getStudents())
+				for(Student student : studentList.getStudents())
 					student.changeIndex(index, indTo);
 				System.out.println("Index changed!");
 				break;
@@ -276,8 +276,8 @@ public class StaffApp{
 					}
 				// Go through those IDs, add to the coures and send mail
 				for(Integer ID : IDs){
-					studentlist.addCourse(ID, course.getIndex());
-					studentlist.sendNotification(ID, course.getIndex());
+					studentList.addCourse(ID, course.getIndex());
+					studentList.sendNotification(ID, course.getIndex());
 				}
 				System.out.println("Capacity changed!");
 				break;
@@ -327,7 +327,7 @@ public class StaffApp{
 			default: break;
 		}
 		courseList.saveCourses();
-		studentlist.saveStudents();
+		studentList.saveStudents();
 		courseList.printAllCourses();
 	}
 
@@ -358,7 +358,7 @@ public class StaffApp{
 			System.out.println("No course could be found with that index number. Aborting");
 			return;
 		}
-		studentlist.printStudentsByIndex(ind);
+		studentList.printStudentsByIndex(ind);
 
 	}
 	//ask course name
@@ -377,7 +377,7 @@ public class StaffApp{
 			System.out.println("Course name could not be found");
 			return;
 		}
-		studentlist.printStudentsInCourse(c);
+		studentList.printStudentsInCourse(c);
 	}
 	/**
 	* Print menu for StaffApp

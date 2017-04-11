@@ -5,7 +5,7 @@ import java.io.IOException;
  @version 1.0
  @since 2017-04-10
 */
-public class studentList {
+public class StudentList {
 
 	/**
 	 * ArrayList Student
@@ -14,7 +14,7 @@ public class studentList {
 	/**
 	 * Student list's constructor. Uses FileIO class to read students
 	 */
-	public studentList(){
+	public StudentList(){
 		try{
 			students = FileIO.readStudents();
 			}
@@ -145,14 +145,20 @@ public class studentList {
 	 * @param int index Index that information concerns
 	 */
 	public void sendNotification(Integer ID, int ind){
+		//SendMail sendMail = new SendMail();
+
 		Student s = findStudentByID(ID);
-		if(s.getNotPref() == Person.NOTIFICATION.MAIL)
+		if(s.getNotPref() == Person.NOTIFICATION.MAIL){
+			SendEmail.createMessage("mattdodd12@gmail.com", ind);
+			
 			System.out.println("MAIL SENT!");
+			}
 		else if(s.getNotPref() == Person.NOTIFICATION.PHONE)
 			System.out.println("Send text message");	
-		else
+		else{
 			System.out.println("MAIL AND TEXT MESSAGE SEND");
-		
+			SendEmail.createMessage("mattdodd12@gmail.com", ind);
+		}
 	}
 	/**
 	 * Print student list

@@ -1,53 +1,118 @@
-import java.util.*;
-import javax.mail.*; // think you need a extra thing on computer to run
-import javax.mail.internet.*; // same as above
-import javax.activation.*;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class SendEmail {
 
-   public static void main(String [] args) {    
-      // Recipient's email ID needs to be mentioned.
-      String to  ; //need to get student's email
+   public static void main(String[] args) {
 
-      // Sender's email ID needs to be mentioned
-      String from = "web@ntu.edu.sg";
+      final String username = "ce2002javamagic@gmail.com";
+      final String password = "mattsigrid";
 
-      // Assuming you are sending email from localhost
-      // What is this?
-      String host = "localhost";
+      Properties props = new Properties();
+      props.put("mail.smtp.auth", "true");
+      props.put("mail.smtp.starttls.enable", "true");
+      props.put("mail.smtp.host", "smtp.gmail.com");
+      props.put("mail.smtp.port", "587");
 
-      // Get system properties
-      Properties properties = System.getProperties();
-
-      // Setup mail server
-      properties.setProperty("mail.smtp.host", host);
-
-      // Get the default Session object.
-      Session session = Session.getDefaultInstance(properties);
-      
-      String courseCode ;//need to get coursecode
+      Session session = Session.getInstance(props,
+        new javax.mail.Authenticator() {
+         protected PasswordAuthentication getPasswordAuthentication() {
+            return new PasswordAuthentication(username, password);
+         }
+        });
 
       try {
-         // Create a default MimeMessage object.
-         MimeMessage message = new MimeMessage(session);
 
-         // Set From: header field of the header.
-         message.setFrom(new InternetAddress(from));
+         Message message = new MimeMessage(session);
+         message.setFrom(new InternetAddress("from-email@gmail.com"));
+         message.setRecipients(Message.RecipientType.TO,
+            InternetAddress.parse("to-email@gmail.com"));
+         message.setSubject("Testing Subject");
+         message.setText("Dear Mail Crawler,"
+            + "\n\n No spam to my email, please!");
 
-         // Set To: header field of the header.
-         message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-
-         // Set Subject: header field
-         message.setSubject("Waitlist notification");
-
-         // Now set the actual message
-         message.setText("You have been registered to "	+ courseCode ); //need to get courseCode from somewhere
-
-         // Send message
          Transport.send(message);
-         System.out.println("Sent message successfully....");
-      }catch (MessagingException mex) {
-         mex.printStackTrace();
+
+         System.out.println("Done");
+
+      } catch (MessagingException e) {
+         throw new RuntimeException(e);
       }
    }
 }
+
+
+// import javax.mail.Message;
+// import javax.mail.MessagingException;
+// import javax.mail.PasswordAuthentication;
+// import javax.mail.Session;
+// import javax.mail.Transport;
+// import javax.mail.internet.InternetAddress;
+// import javax.mail.internet.MimeMessage;
+// import java.util.Properties;
+
+// public class SendEmail {
+
+//     public static void createMessage() {
+//     //String semail, int ind
+//     //CourseList courses = new CourseList();
+//       //String course = courses.findCourseByIndex(1234).getCourseCode(); 
+//       //String to = semail;
+//       String to = "mattdodd12@gmail.com";
+//       String from = "ce2002javamagic@gmail.com";
+//       final String username = "ce2002javamagic";
+//       final String password = "mattsigrid";
+
+      
+//       String host = "smtp.gmail.com";
+
+//       Properties props = new Properties();
+//       props.put("mail.smtp.auth", "true");
+//       props.put("mail.smtp.starttls.enable", "true");
+//       props.put("mail.smtp.host", host);
+//       props.put("mail.smtp.port", "587");
+
+   
+//       Session session = Session.getInstance(props,
+//       new javax.mail.Authenticator() {
+//          protected PasswordAuthentication getPasswordAuthentication() {
+//             return new PasswordAuthentication(username, password);
+//          }
+//       });
+
+//       try {
+//          // Create a default MimeMessage object.
+//          MimeMessage message = new MimeMessage(session);
+
+//          // Set From: header field of the header.
+//          message.setFrom(new InternetAddress(from));
+
+//          // Set To: header field of the header.
+//          message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+
+//          // Set Subject: header field
+//          message.setSubject("Waitlist notification");
+
+//          // Now set the actual message
+//          message.setText("You have been registered to "  + "course" ); //need to get courseCode from somewhere
+
+//          // Send message
+//          Transport.send(message);
+//          System.out.println("Sent message successfully....");
+//       }catch (MessagingException mex) {
+//          mex.printStackTrace();
+//       }
+//    }
+
+//    public static void main(String[] args){
+//       createMessage();
+//    }
+
+// }
