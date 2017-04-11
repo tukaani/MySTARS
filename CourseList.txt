@@ -1,4 +1,4 @@
 cs2002|java|1234|1|1|SCI|lecture-T2-Monday-9-tut-tr8-Wendnesday-9-|888|777|123|
 cs2002|java|4567|20|12|SCI|lecture-T5-Friday-9-tut-tr1-Wendnesday-10-|888|777||
 cs4002|cpp|12|30|24|SCI|lecture-T5-Friday-8-tut-tr5-Wendnesday-12-|888|777||
-cs998|Quantum Mechanics|1337|20|7|Sci|Lecture-T9-Wendesday-12-Tutorial-tr8-Monday-11-|888|777||
+cs998|Quantum Mechanics|1337|20|6|Sci|Lecture-T9-Wendesday-12-Tutorial-tr8-Monday-11-|888|777||

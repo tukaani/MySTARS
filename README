@@ -1,0 +1,7 @@
+
+To test notification one can create student with name of 
+
+How to compile and run:
+	compile: javac -classpath javax.mail.jar: *.java
+	run: java -classpath javax.mail.jar: MyStarsApp
+

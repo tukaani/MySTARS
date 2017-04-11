@@ -77,6 +77,9 @@ public class StaffApp{
 					break;
 				case(8):
 					return -1;
+				default:
+					System.out.println("Invalid input");
+					break;
 			}
 
 		}while(ch < 9);
