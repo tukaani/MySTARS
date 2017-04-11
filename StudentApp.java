@@ -26,6 +26,7 @@ public class StudentApp{
 	* Handles student login
 	*/
 	public void loginStudent(){
+		//SendEmail.createMessage("mattdodd12@gmail.com", 666);
 		Console cnsl = System.console();
 		String matricN = cnsl.readLine("Give your matriculation number: ");
 		char[] passwd = cnsl.readPassword("password: ");
@@ -36,6 +37,7 @@ public class StudentApp{
 				&& student.checkDate()){
 					this.student = student;
 					System.out.println("Welcome " + this.student.getName());
+					System.out.println(student.getName().replace(" ", "."));
 					int res = start();
 					if(res == -1){
 						System.out.println("Logging out!");

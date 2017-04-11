@@ -145,19 +145,20 @@ public class StudentList {
 	 * @param int index Index that information concerns
 	 */
 	public void sendNotification(Integer ID, int ind){
-		//SendMail sendMail = new SendMail();
 
 		Student s = findStudentByID(ID);
 		if(s.getNotPref() == Person.NOTIFICATION.MAIL){
-			SendEmail.createMessage("mattdodd12@gmail.com", ind);
+			String name = s.getName().replace(" ", ".");
+			SendEmail.createMessage(name + "@gmail.com", ind);
 			
-			System.out.println("MAIL SENT!");
 			}
 		else if(s.getNotPref() == Person.NOTIFICATION.PHONE)
 			System.out.println("Send text message");	
 		else{
+			String name = s.getName().replace(" ", ".");
+			SendEmail.createMessage(name + "@gmail.com", ind);
 			System.out.println("MAIL AND TEXT MESSAGE SEND");
-			SendEmail.createMessage("mattdodd12@gmail.com", ind);
+			
 		}
 	}
 	/**
