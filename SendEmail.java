@@ -1,4 +1,3 @@
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -7,9 +6,19 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
-
+/**
+ Handles sending notification mail to students
+ @version 1.0
+ @since 2017-04-10
+*/
 public class SendEmail {
 
+   /**
+   *  Method for sending message to particular student
+   * @param String semail Students email name in format "first.last"
+   *        Methods appends gmail domaint to that. In example first.last@gmail.com
+   * @param int ind Index number on what email is considering
+   */
     public static void createMessage(String semail, int ind) {
     
     CourseList courses = new CourseList();
@@ -42,29 +51,11 @@ public class SendEmail {
          message.setRecipients(Message.RecipientType.TO,
             InternetAddress.parse(to));
          message.setSubject("Waitlist notification");
-         message.setText("You have been registered to "  + course );
+         message.setText("You have been registered to "  + course + " with index " + ind);
 
          Transport.send(message);
 
          System.out.println("Done");
-         // // Create a default MimeMessage object.
-         // MimeMessage message = new MimeMessage(session);
-
-         // // Set From: header field of the header.
-         // message.setFrom(new InternetAddress(from));
-
-         // // Set To: header field of the header.
-         // message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-
-         // // Set Subject: header field
-         // message.setSubject("Waitlist notification");
-
-         // // Now set the actual message
-         // message.setText("You have been registered to "  + "course" ); //need to get courseCode from somewhere
-
-         // // Send message
-         // Transport.send(message);
-         // System.out.println("Sent message successfully....");
       }catch (MessagingException mex) {
          mex.printStackTrace();
       }
