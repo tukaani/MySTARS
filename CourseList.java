@@ -165,10 +165,10 @@ public class CourseList {
 		Course course1 = findCourseByIndex(ind1);
 		Course course2 = findCourseByIndex(ind2);
 
-		if (course1.getTimeTable()[2] == course2.getTimeTable()[2] &&
-			course1.getTimeTable()[3] == course2.getTimeTable()[3]
-			|| (course1.getTimeTable()[6] == course2.getTimeTable()[6]) &&
-			course1.getTimeTable()[7] == course2.getTimeTable()[7])
+		if (course1.getTimeTable()[2].equals(course2.getTimeTable()[2]) &&
+			course1.getTimeTable()[3].equals(course2.getTimeTable()[3])
+			|| (course1.getTimeTable()[6].equals(course2.getTimeTable()[6]) &&
+			course1.getTimeTable()[7].equals(course2.getTimeTable()[7])))
 				return false;
 		return true;
 	}

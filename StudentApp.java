@@ -145,7 +145,6 @@ public class StudentApp{
 	* @return returns true if there is no clash, false otherwise
 	*/
 	public boolean checkClash(int ind, Student stud){
-		System.out.println(stud.getID());
 		for(Integer i : stud.getIndexes()){
 			if(!courseList.checkClash(i, ind))
 				return false;
